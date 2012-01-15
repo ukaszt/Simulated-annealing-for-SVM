@@ -1,10 +1,10 @@
 function wmh_solve(kernel_type)
 
-    %trn = dlmread('data/rs_train5_no_headers_mini.txt');
-    %tst = dlmread('data/rs_test5_no_headers_mini.txt');
+    trn = dlmread('data/rs_train5_no_headers_mini.txt');
+    tst = dlmread('data/rs_test5_no_headers_mini.txt');
     
-    trn = dlmread('data/devtrain.txt');
-    tst = dlmread('data/devtest.txt');
+    %trn = dlmread('data/devtrain.txt');
+    %tst = dlmread('data/devtest.txt');
     
     [trn_r, trn_c] = size(trn);
     [tst_r, tst_c] = size(tst);
@@ -19,7 +19,17 @@ function wmh_solve(kernel_type)
             p0 = [-3 -3];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
-                @(u, v) kernel_polynomial(u, v, p(1), p(2), 3));   
+                @(u, v) kernel_polynomial(u, v, p(1), p(2), 3));
+        case 'rbf'
+            p0 = [-3];
+            min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
+                tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
+                @(u, v) kernel_rbf(u, v, p(1)));
+        case 'tanh'
+            p0 = [-3 -3];
+            min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
+                tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
+                @(u, v) kernel_tanh(u, v, p(1), p(2)));
     end
     
     options = saoptimset('MaxIter', 1500);
