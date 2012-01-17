@@ -6,7 +6,6 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
     tstno  = size(tstd);
     newcls = zeros(tstno(2), unqclsno);
     
-    % Traning classifiers
     if(unqclsno > 2)
         prs = nchoosek(unqcls, 2);
         itr=1;
@@ -26,6 +25,10 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
             itr=itr+1;
         end
     end
+    
+    % TODO:
+    %  - glosowanie
+    %  - sprawdzenie czy blad
     
     newcls
     
