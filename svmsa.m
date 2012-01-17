@@ -4,14 +4,15 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
     
     trn    = [trnd trng];
     tstno  = size(tstd);
-    newcls = zeros(tstno(2), unqclsno);
+    newcls = zeros(tstno(1), unqclsno); % macierz wynikowa przypisania
+                                        % danych testowych do klasy
     
     if(unqclsno > 2)
-        prs = nchoosek(unqcls, 2);
+        prs = nchoosek(unqcls, 2); %all combinations of pairs of classes
         itr=1;
         while(itr <= length(prs))
-            clsa = trn(find(trn(:, end) == prs(itr, 1)), :); % wiersze danych trenujacych spelniajace warunke numeru klasy
-            clsb = trn(find(trn(:, end) == prs(itr, 2)), :); % wiersze danych trenujacych spelniajace warunke numeru klasy
+            clsa = trn(find(trn(:, end) == prs(itr, 1)), :); % wiersze danych trenujacych nalezace
+            clsb = trn(find(trn(:, end) == prs(itr, 2)), :); % do jednej z aktualnie sprawdzanych klas
             svmclsfr = svmtrain([ clsa(:, 1:end-1); clsb(:, 1:end-1)], ...
                 [clsa(:, end); clsb(:, end)], 'kernel_function', kernel, ... 
                 'showplot', false, 'autoscale', false);
@@ -19,24 +20,14 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
             itr2=1;
             while itr2 <= tstno(1)
                 res = svmclassify(svmclsfr, tstd(itr2, :));
-                newcls(itr2, find( unqcls == res)) = newcls(itr2, find( unqcls == res )) + 1;
-                itr2=itr2 + 1;
+                newcls(itr2, find(unqcls == res)) = newcls(itr2, find( unqcls == res )) + 1;
+                itr2 = itr2+1;
             end            
             itr=itr+1;
         end
     end
     
-    % TODO:
-    %  - glosowanie
-    %  - sprawdzenie czy blad
+    [maxvals, fincls] = max(newcls, [], 2); %fincls zawiera wynik przydzialu do klas
     
-    newcls
-    
-    % errorn = sum(~(svm_classify_result == tstg));
-    % disp('NUM ERR:')
-    % disp(errorn)
+    errorn = sum(~(fincls == tstg));
 end
-
-% a = magic(3)
-% a(1, 3) = 2
-% a(find( a(:,end) == 2 ), :)
