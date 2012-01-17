@@ -1,5 +1,5 @@
 function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
-    unqcls = unique([trng; tstg]);
+    unqcls = unique([trng; tstg]);      
     unqclsno = length(unqcls);
     
     trn    = [trnd trng];
@@ -28,6 +28,6 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
     end
     
     [maxvals, fincls] = max(newcls, [], 2); %fincls zawiera wynik przydzialu do klas
-    
-    errorn = sum(~(fincls == tstg));
+    mortalcombat = unqcls(fincls);
+    errorn = sum(~(mortalcombat == tstg));
 end
