@@ -20,6 +20,6 @@ function y=svmsa_test()
     tstg = [1; 1; 2; 2; 3; 3];
     
     err_num = svmsa(trnd, trng, tstd, tstg, @(u,v) kernel_tanh(u, v, 1, 2));
-    disp (err_num)
+  
 
     
