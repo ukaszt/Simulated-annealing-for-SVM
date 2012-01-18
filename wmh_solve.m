@@ -1,7 +1,11 @@
 function wmh_solve(kernel_type)
 
-    trn = dlmread('data/rs_train5_no_headers.txt');
-    tst = dlmread('data/rs_test5_no_headers.txt');
+    %trn = dlmread('data/rs_train5_no_headers.txt');
+    %tst = dlmread('data/rs_test5_no_headers.txt');
+    
+    
+    tst = dlmread('data/rs_test7_short.csv', ',');
+    trn = dlmread('data/rs_train7_short.csv', ',');
     
     %trn = dlmread('data/mltclass_train.txt');
     %tst = dlmread('data/mltclass_test.txt');
@@ -16,10 +20,10 @@ function wmh_solve(kernel_type)
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));     
         case 'polynomial'
-            p0 = [0 0];
+            p0 = [0 0 1];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
-                @(u, v) kernel_polynomial(u, v, p(1), p(2), 3));
+                @(u, v) kernel_polynomial(u, v, p(1), p(2), 2));
         case 'rbf'
             p0 = [-3];
             min_fun = @(p) svmsa(trn(:, 1:end - 1), trn(:, end), ...

@@ -1,5 +1,5 @@
 function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
-    unqcls = unique([trng; tstg]);      
+    unqcls = unique(trng);      
     unqclsno = length(unqcls);
     
     trn    = [trnd trng];
@@ -9,6 +9,7 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
     
     if(unqclsno > 2)
         prs = nchoosek(unqcls, 2); % wszystkie kombinacje 2 klas
+
         itr=1;
         while(itr <= length(prs))
             clsa = trn(find(trn(:, end) == prs(itr, 1)), :); % wiersze danych trenujacych nalezace
