@@ -20,10 +20,10 @@ function wmh_solve(kernel_type)
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));     
         case 'polynomial'
-            p0 = [0 0 1];
+            p0 = [0 0 ];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
-                @(u, v) kernel_polynomial(u, v, p(1), p(2), 2));
+                @(u, v) kernel_polynomial(u, v, p(1), p(2), 3));
         case 'rbf'
             p0 = [-3];
             min_fun = @(p) svmsa(trn(:, 1:end - 1), trn(:, end), ...
@@ -36,7 +36,7 @@ function wmh_solve(kernel_type)
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));
     end
     
-    options = saoptimset('TimeLimit', 600);
+    options = saoptimset('TimeLimit', 600, 'AnnealingFcn' ,@annealingboltz);
     [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, [-10 -10], [10 10], options);
     
     x
