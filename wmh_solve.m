@@ -1,7 +1,7 @@
 function wmh_solve(kernel_type)
 
-    trn = dlmread('data/rs_train5_no_headers_mini.txt');
-    tst = dlmread('data/rs_test5_no_headers_mini.txt');
+    trn = dlmread('data/rs_train5_no_headers.txt');
+    tst = dlmread('data/rs_test5_no_headers.txt');
     
     %trn = dlmread('data/devtrain.txt');
     %tst = dlmread('data/devtest.txt');
