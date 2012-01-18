@@ -1,10 +1,10 @@
 function wmh_solve(kernel_type)
 
-    trn = dlmread('data/rs_train5_no_headers_mini.txt');
-    tst = dlmread('data/rs_test5_no_headers_mini.txt');
+    trn = dlmread('data/rs_train5_no_headers.txt');
+    tst = dlmread('data/rs_test5_no_headers.txt');
     
-    %trn = dlmread('data/devtrain.txt');
-    %tst = dlmread('data/devtest.txt');
+    %trn = dlmread('data/mltclass_train.txt');
+    %tst = dlmread('data/mltclass_test.txt');
     
     [trn_r, trn_c] = size(trn);
     [tst_r, tst_c] = size(tst);
@@ -16,31 +16,33 @@ function wmh_solve(kernel_type)
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));     
         case 'polynomial'
-            p0 = [-3 -3];
+            p0 = [0 0];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_polynomial(u, v, p(1), p(2), 3));
         case 'rbf'
             p0 = [-3];
-            min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
-                tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
+            min_fun = @(p) svmsa(trn(:, 1:end - 1), trn(:, end), ...
+                tst(:, 1:end - 1), tst(:, end),  ...
                 @(u, v) kernel_rbf(u, v, p(1)));
         case 'tanh'
-            p0 = [-3 -3];
+            p0 = [0 0];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));
     end
     
-    options = saoptimset('MaxIter', 1500);
-    [x fval] = simulannealbnd(min_fun, p0, [0 -2], [10 10], options);
+    options = saoptimset('TimeLimit', 600);
+    [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, [-10 -10], [10 10], options);
     
     x
+    fval
+    output
     
-    hold on
-    svm_classfier = svmtrain(trn(:, 1:(trn_c - 1)), trn(:, trn_c), ...
-        'kernel_function', @(u, v) kernel_polynomial(u, v, x(1), x(2), 3), ...
-        'autoscale', false, 'showplot', true);
-    svmclassify(svm_classfier, tst(:, 1:tst_c - 1), 'showplot', true);
+    %hold on
+    %svm_classfier = svmtrain(trn(:, 1:(trn_c - 1)), trn(:, trn_c), ...
+    %    'kernel_function', @(u, v) kernel_polynomial(u, v, x(1), x(2), 3), ...
+    %    'autoscale', false, 'showplot', false);
+    %groups = svmclassify(svm_classfier, tst(:, 1:tst_c - 1), 'showplot', true)
     
     

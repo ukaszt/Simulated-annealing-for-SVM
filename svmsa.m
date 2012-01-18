@@ -13,9 +13,10 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
         while(itr <= length(prs))
             clsa = trn(find(trn(:, end) == prs(itr, 1)), :); % wiersze danych trenujacych nalezace
             clsb = trn(find(trn(:, end) == prs(itr, 2)), :); % do jednej z aktualnie sprawdzanych klas
+            
             svmclsfr = svmtrain([ clsa(:, 1:end-1); clsb(:, 1:end-1)], ...
                 [clsa(:, end); clsb(:, end)], 'kernel_function', kernel, ... 
-                'showplot', false, 'autoscale', false);
+                'showplot', false, 'autoscale', false, 'method', 'LS');
             
             itr2=1;
             while itr2 <= tstno(1)
