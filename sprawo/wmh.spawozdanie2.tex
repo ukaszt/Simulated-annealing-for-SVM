@@ -1,0 +1,187 @@
+\documentclass{article}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+
+\begin{document}
+
+\title{Współczesne Metody Heurystyczne - Projekt}
+\author{
+    Piotr Doniec \texttt{pdoniec@elka.pw.edu.pl}
+    \and
+    Łukasz Trzaska \texttt{ltrzaska@elka.pw.edu.pl}\\
+    Wydział Elektroniki i Technik Informacyjnych,\\
+    Politechnika Warszawska,\\
+}
+
+\date{\today}
+\maketitle
+
+\section{Wstęp}
+\subsection{Treść zadania}
+Celem projektu jest implementacja matody symulowanego wyżarzania (ang. simulated annealing - SA) (kilka wariantów) do doboru wartości parametrów jąder przekształcenia w zadaniu klasyfikacyjnym. Wyznacznikiem jakości klasyfikacji jest ilość popełnianych błędów. Otrzymane wyniki należy porównać z metodą pełnego przeglądu.
+
+\subsection{Symulowane wyżarzanie}
+Symulowane wyżarzanie to rodzaj algorytmu poszukującego rozwiązania problemu optymalizacyjnego. Jest to algorytm heurystyczny, zatem znalezione rozwiązanie nie jest optymalne a jedynie do niego zbliżone. Innymi przykładami algorytmów heurytycznych stosowanymi do optymalizacji jest rodzina algorytmów ewolucyjnych, Multistart, Adaptive Random Search.
+
+Symulowane wyżarzanie często wykorzystywane jest gdy przestrzeń rozwiązań jest dyskretna. Najpowszechniejszym przykładem zadania, w który zastosowanie znajduje SA jest TSP (ang. Travelling Salesman Problem). Idea działania SA pochodzi z metalurgii i po raz pierwszy została opisana w 1953 roku. Pod wpływem wysokiej temperatury cząstki, atomy uwalniają się z pozycji, a oddając energię w czasie kontrolowanego schładzania rozkładają się w sposób bardziej systematyczny, przyjmując mniejszą wewnętrzną energię. Bazując na podobnych założeniach zaproponowano metodę symulowanego wyżarzania do rozwiązywania zadań optymalizacyjnych. 
+Algorytm znalazł szerokie zastosowanie począwszy od kolorowania i podziału grafu aż do optymalizacji rozlokowania układów elektronicznych, rekonstrukcji obrazu i geofizyki. Powszechność metody wynika głównie z łatwości implementacji w celu rozwiązania konkretnego zadania optymalizacyjnego, braku sczególnych wymagań dotyczących analizowanej / optymalizowanej funkcji a ponadto dowiedziono, że SA asymptotycznie dąży do globalnego minimum \cite{varts00}. Dodatową cechą algorytmu jest unikanie pułapek związanymi z minimami lokalnymi . Dzieje się tak, gdyż w określonych przypadkach, SA zezwala na przyjęcie gorszego rozwiązania niż aktualnie najlepsze.
+
+\subsubsection{Ogólny opis algorytmu}
+    Algorytm symulowanego wyżarzania łatwo rozpatrywać dzieląc na 4 fazy: generowanie nowego, następnego stanu, sprawdzenie warunku akceptacji, redukcja parametrów sterujących, sprawdzenie warunku stopu.
+    \begin{algorithm}
+        \caption{Generyczna postać algorytmu symulowanego wyżarzania}
+        \begin{algorithmic}
+        \WHILE{warunek stopu nie osiągnięty}
+            \FOR{$j = 1 \to N_c^k $}
+                \STATE Generowanie nowego stanu
+                \STATE Ewaluacja kryterium akceptacji
+            \ENDFOR
+            \STATE Uaktualnienie $N_c^k$
+            \STATE Redukcja parametru sterującego
+        \ENDWHILE
+        \end{algorithmic}
+    \end{algorithm}
+    
+    \paragraph{Generowanie nowego stanu.}
+    Generowanie nowego stanu, punktu jest bardzo istotnym etapem. Sposób wytwarzania nowych punktów wpływa w oczywisty sposób na wydajność algorytmu. Po kilku iteracjach algorytmu, powinno się uzyskiwać coraz niższe wartości funkcji. Z tego powodu dopasowanie metody generowania punktów do problemu jest bardzo istotne z punktu widzenia działnia algorytmu. W przypadku TSP, proponowanym sposobem na wyznaczenie kolejnych stanów jest zamiana kolejności w losowo wybranej parze kolejnych miast na drodze komiwojażera.
+    Punkt startowy algorytmu jest często poprostu losowany. Jednakże, w wielu arytułach pojawiają się sugestię, aby dobrać początkowy stan po uprzedniej analizie problemu.
+
+    \paragraph{Kryterium akceptacji.}
+    Kryterium akceptacji pozwala SA na uniknięcie pułapki związanej z minimum lokalnym, kiedy poszukiwane jest minimum globalne. Dodatkowo w każdej kolejnej iteracji, prawdopodobieństwo tego że nowe, ale gorsze rozwiązanie zostanie zaakceptowane jest coraz mniejsze. Z tego wynika, że pod koniec działania algorytm koncentruje się na poprawianiu precyzji uzyskanego wyniku.
+Najczęściej stosowanym kryterium akceptacji jest kryterium Metropolisa.
+
+\[
+  t^{k+1} = \left\{
+  \begin{array}{l l}
+    y & \quad \textrm{if $\tau \leq A_{{t^k}y}(c^k) $}\\
+    t^k & \quad \textrm{wpp.}\\
+  \end{array} \right.
+\]
+
+\[
+A_{{t^k}y}(c^k) = min(1, \exp(-\frac{g(t^k)-g(y)}{c^k}) 
+\]
+, gdzie: \\ 
+        $ t^k $ to aktualny stan, oszacowanie globalnego minimum, \\ 
+        $ y $ jest nowym punktem, kandydatem, \\ 
+        $\tau$ wartość wylosowana z przdziału jednostajnego $U(0,1)$, \\
+        $ A_{{t^k}y}(c^k) $ kryterium Metropolisa \\
+
+Większość vartiantów symulowanego wyżarzania korzysta z kryterium Metropolisa. Tyczy się to również obu modyfikacji opisanych w natępnych punktach.
+
+    \paragraph{Redukcja parametru sterującego.}
+    Funkcja malejąca $ c^k $ jest nazywana parametrem sterującym lub harmonogramem schładzania. W celu uzyskania wydajnego algorytmu początkowa wartość parametru sterującego powinna być wystarczająco wysoka by przeszukać regiony zawierające potencjalne rozwiązanie, ale jednocześnie nie przesadzono, bo spowoduje to spowolnienie algorytmu. Z tego powodu dobra wartość początkowa jest praktycznie niemożliwa do oszacowania bez żadnej analizy problemu. 
+
+    \paragraph{Warunek stopu.}
+    Istnieje wiele różnych warunków stopu do zastasowania w przypadku symulowanego wyżarzania. Wszystkie sprowadzają się do prostego pomysłu, że algorytm powinien się zatrzrymać jeśli ,,materiał'' zamarzł i mimo zmiany temperatury nie dostrzega się zmiany w rozwiązaniu. Przykładowym warunkiem stopu może być określona liczba iteracji lub osiągnięcie dolnej granicy parametru sterującego. Innym pomysłem jest zatrzymanie wyżarzania, kiedy kolejne $ N $ iteracji nie przynosi zmiany wyniku.
+
+\subsubsection{Wariant Boltzmana}
+W wariantcie Boltzmanna, nazywanym również SSA (ang. Standard Simulated Annealing), wykorzystywane są kolejno następująca funkcja generowania nowych punktów i harmonogram schładzania:
+
+\[
+g(\Delta x) = (2\pi T)^{-\frac{D}{2}}\exp(-\frac{({\Delta t}^2)}{2T})
+\]
+
+\[
+T(k) = \frac{T_0}{lnk}
+\]
+
+,gdzie \\
+    $ \Delta t_k = t_{k+1} - t_k $, to różnica między aktualnym i poprzednim stanem  \\
+    $ k $, kwant czasu
+
+\subsubsection{Wariant FSA}
+Wariant wyróżnia się nie tylko inną metodą generowania nowego stanu, ale także inną funkcją zmiany temperatury. Na bazie FSA powstały kolejne modyfikacje SA. Najpierw było to VFSA (ang. Very Fast Simulated Annealing ) a potem ASA (ang. Adaptive Simulated Annealing). Ostatnia pozycja charakteryzuje się zmianą parametrów  (tj. harmonogram chłodzenia, generacja kolejnego stanu) w trakcie działania algorytmu. To sprawia, że algorytm jest bardziej wydajny i mniej wrażliwy na zdefiniowane przez użytkownika parametry.
+\\ \\
+Równania dla FSA: 
+\[  T(t) = T_0/t  \]
+\[  g(\Delta x ) = \frac{T}{(\Delta x^2 + T^2)^{\frac{D+1}{2}}}  \]
+
+\subsection{SVM}
+SVM (ang. Supporting Vector Machine) to koncepcja w statystyce oraz informatyce dla metod nadzorowanego uczenia maszyn w analizie danych i rozpoznawania wzorców na użytek algorytmów klasyfikacji i analizy regresji. Standardowo maszyna SVM jest w stanie przydzielić dane do jednej z dwóch klas. Czyni to algorytm SVM nieprobabilistycznym liniowym klasyfikatorem binarnym. Zadając zbiór danych trenujących, przyporządkowanych do jednej z kategorii, algorytm trenujący SVM buduje model, który przypisuje dane przykładowe do jednej z tych kategorii. Model ten jest reprezentacją danych przykładowych jako punktów w przestrzeni, odwzorowanej w taki sposób, aby dane z wydzielonych kategorii były oddzielone wyraźną przestrzenią, tak dużą jak to możliwe. Nowe dane są następnie odwzorowane na tą samą przestrzeń i przypisane do kategorii biorąc pod uwagę część przestrzeni w której się znajdują.
+
+\subsubsection{Jądro przekształcenia}
+Przy przekstrzałceniu danych treningowych na punkty w przestrzeni, która później służy do przypisywania kategorii dla danych testowych, można użyć kilku rodzajów jąder. W praktyce, na podstawie doświadczeń ze środowiskiem rozwiązania zadania MatLab, używa się poniższych:
+\begin{enumerate}
+\item liniowe,
+\item kwadratowe,
+\item wielomianowe,
+\item tangens hiperboliczny,
+\item rbf - funkcja charakterystyczna normalnego rozkładu Gausowska,
+\item mlp - funkcja mnożnika perceptronu.
+\end{enumerate}
+Testy zostaną przeprowadzone dla jąder: wielomianowego, tangensa hiperbolicznego oraz rbf. W wynikach zwizualizowane zostaną te dane, które są najciekawsze pod kątem prezentacji różnorodności rozwiązania przedstawionego problemu.
+\subsubsection{Wieloklasowy SVM}
+Podział danych na dwie klasy jest często nie wystarczający. Aby rozszerzyć możliwości SVM o kategoryzację do kilku klas, wykorzystuje się kilka, niezależnie trenowanych binarnych SVM i definiuje strategię przydziału nowego wektora do jednej z istniejących klas. Jedną z takich strategii jest ,,one-versus-all''. Metoda polega na utworzeniu, w przypadku M klas, M binarnych maszyn SVM w których podział następuje między jedną z dostępnych klas a pozostałymi ( M - 1) klasami. Przydział testowego wektora do klasy odbywa się na zasadzie winner-takes-all.
+Inne możliwe metody budowy wieloklasowego SVM to ,,one-against-one'' lub ,,DAGSVM''.
+ 
+
+\section{Założenie projektowe}
+\begin{enumerate}
+\item Porównanie wyników dla dwóch rodzajów jąder przekształcenia klasyfikacyjnego algorytmu SVM - zadane jako parametr wejściowy
+\item Wykorzystanie metody symulowanego wyżarzania w dwóch wariantach: Bolztmanna oraz FSA - zadane jako parametr wejściowy
+\item Implementacja rozwiązania oraz przeprowadzenie i wizualizacja wyników testowania w środowisku MATLAB
+\item Na wejściu nadesłane dane trenujące i testowe, na wyjściu przydział wektorów do klas diagram popełnionych błędów
+\item Kryterium stopu - określona liczba iteracji zadana jako parametr wejściowy
+\end{enumerate}
+\paragraph{Testy.}
+Działanie dobranych parametrów dla jąder przekształceń przetestowane zostanie na przygotowanych wcześniej danych. Dane wejściowe treningowe, jak również dane testowe program przyjmnie w postaci wektorów liczb rzeczywistych, gdzie ostatnią składową wektora, będzie wartość liczbowa, wyznaczająca kategorię do której on przynależy. Wektory, zapisane będą w pliku tekstowym w postaci liczb zmiennoprzecinkowych o zapisie wykładniczym oddzielonych białym znakiem.
+\paragraph{Złożoność obliczeniowa i czas wykonania.}
+Szacowanie złożoności obliczeniowej oraz czasu wykonania dla całego rozwiązania dekomponuje się na złożoność i czas wykonania odpowiednio dla algorytmu wyżarzania oraz  algorytmu treningu klasyfikatora SVM, ponieważ w kroku, w którym ewaluowana jest wartość bieżącego znalezionego rozwiązania dla wyżarzania, trzeba będzie wykonać trening i testowanie danych przy użyciu SVM.
+Będziemy posługiwać się pesymistyczną złożonością obliczeniową dla każdego z przypadków. Dla algorytmu symulowanego wyżarzania jest ona wielomianowa dla każdej składowej problemu, co w przypadku sumy złożonośc i przy doborze kilku parametrów pozostawia ją wielomianową. W przypadku algorytmu treningowego, parametrem złożoności klasyfikacji, będzie ilość danych wektorów wejściowych. Z dotychczasowej analizy dostępnych źródeł ustaliliśmy, że złożoność ta jest liniowa z ewentualnym doprecyzowaniem ilością wymiarów wektorów. W konkluzji, przyjąć można, że złożoność rożwiązania będzie wilomianowa.
+\paragraph{Prezentacja wyników.}
+Wyniki porównania jakości doboru parametrów jąder przekształceń zaprezentowane zostaną na wykresach obrazujących ilość błędów klasyfikacji i czasy wykonania dla poszczególnych typów jąder przekształceń i rodzajów symulowanego wyżarzania. 
+\section{Środowisko realizacji}
+Ze względu na bardzo dużą ilość matematyki w projekcie zdecydowaliśmy się na realizację projektu w programie MATLAB. Na korzyść wybory wpływa dostępność prostej maszyny SVM zaimplementowanej w Bioinformatics Toolbox oraz funkcji realizującej symulowane wyżarzanie o dużych możliwościach konfiguracyjnych dostępnej w Global Optimization Toolbox. Dzięki temu można skoncentrować się na rozwiązaniu problemu bez konieczności implementowania wszystkich algorytmów składowych.
+\subsection{Symulowane wyżarzanie}
+Dostępna w MATLAB funkcja \texttt{simulannealbnd} realizująca realizująca symulowane wyżarzanie, jest tak naprawdę jedynie szablonem, zapisana jest w sposób generyczny. Zanim zostanie wykorzystana, należy ją dostosować do własnych potrzeb i do rozwiązywanego problemu.
+Do ustawiania parametrów wyżarzania korzysta się z \texttt{saoptimset}. Najważniejsze parametry z punktu widzenia projektu przedstawia Tablica \ref{tab:saoptimset} .
+
+\begin{table}[h]
+\caption{Parametry funkcji \texttt{simulannealbnd}}
+\label{tab:saoptimset}
+\begin{tabular}{|c|p{7cm}|}
+\hline
+Opcja & Opis \\ \hline \hline
+\texttt{AcceptanceFcn} & Uchwyt do funkcji której algorytm użyje jako kryterium akceptacji \\ \hline
+\texttt{AnnealingFcn} & Uchwyt do funkcji która zostanie użyta do generowania nowego punktu, kandydata \\ \hline
+\texttt{DataType} & Typ danych \\ \hline
+\texttt{InitialTemperature} & Początkowa temperatura \\ \hline
+\texttt{MaxFunEvals} & Maximum number of objective function evaluations allowed \\ \hline
+\texttt{MaxIter} & Maksymalna liczba iteracji \\ \hline
+\texttt{PlotFcns} & Wyświetlanie wykresu w czasie wyżarzania \\ \hline
+\texttt{TemperatureFcn} & Uchwyt do funkcji realizującej harmonogram schładzania \\ \hline
+\texttt{TimeLimit} & Limit czasu działania algorytmu w sekundach \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{SVM}
+W celu zbudowania klasyfikatora wykorzystującego SVM należy wykorzystać 2 funkcje. Pierwsza z nich \texttt{svmtrain}  służy trenowaniu klasyfikatora. Jako parametry przyjmuje wektor danych i wektor klas. Możliwe jest tez podanie dodatkowych parametrów kontrolnych. Jednym z nich jest \texttt{kernelfunction} umożliwiający wskazanie funkcji wykonującej przkształcenie. Oprócz predefiniowanych wartości takich jak \texttt{linear}, \texttt{quadratic}, \texttt{polynomial}, można równiez wskazać uchwyt do samodzielnie zdefiniowanej funkcji.
+Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry wejściowe to klasyfikator - rezultat \texttt{svmtrain} oraz dane które chcemy przydzielić do jednej z dwóch klas. Opcjonalnie można wygenerować wykres ilustrujący rezultat klasyfikacji.
+
+\begin{thebibliography}{9}
+\bibitem{intr00}
+Nello Cristianini, John Shawe-Taylor, \emph{An introduction to Support Vector Machines and other kernel-based learning methods}.
+Cambridge University Press,
+2000
+\bibitem{varts00}
+Ana I.P.N Pereira, Edite M.G.P. Fernandes, \emph{A study of simulated annealing variants}.
+Braganca Polytechnic Institute, Bragaca, Portugal,
+Minho University, Braga, Portugal.
+\bibitem{nseo07}
+Naotoshi Seo, \emph{A Comparison of Multi-class Support Vector Machine Methods for Face Recognition}. 
+Department of Electrical and Computer Engineering, The University of Maryland, 
+2007.
+\bibitem{vfsa00}
+Kou-Yuan Huang,Yueh-Hsun Hsieh, \emph{Very Fast Simulated Annealing for pattern detection and seismic applications}. Department of Computer Science, National Chiao Tung University, Hsinchu, Taiwan.
+\bibitem{svmann07}
+Shih-Wei Lin, Zne-Jung Lee, Shih-Chieh Chen, Tsung-Yuan Tseng, \emph{Parameter determination of support vector machine and feature selection using simulated annealing approach}. Department of Information Management, Chang Gung University, Department of Information Management, Huafan University, Department of Industrial Management, National Taiwan University of Science and Technology, 2007.
+\bibitem{www1}
+\emph{http://www.iue.tuwien.ac.at/phd/binder/node87.html}
+\end{thebibliography}
+
+\end{document}
