@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.17)  20 JAN 2012 21:23
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.17)  20 JAN 2012 21:25
 entering extended mode
 **./wmh.spawozdanie2.tex
 (C:\Users\luk\github\Simulated-annealing-for-SVM\sprawo\wmh.spawozdanie2.tex
@@ -812,7 +812,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--100
 Here is how much of TeX's memory you used:
  17351 strings out of 494045
  406694 string characters out of 3145975
- 519806 words of memory out of 3000000
+ 518806 words of memory out of 3000000
  20309 multiletter control sequences out of 15000+200000
  13078 words of font info for 33 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
@@ -836,7 +836,7 @@ les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on wmh.spawozdanie2.pdf (10 pages, 222199 bytes).
+Output written on wmh.spawozdanie2.pdf (10 pages, 222079 bytes).
 PDF statistics:
  443 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
