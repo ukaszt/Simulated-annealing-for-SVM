@@ -166,25 +166,53 @@ Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry w
 
 \section{Wyniki testów i wnioski}
 \subsection{Błędy a typ jądra}
+\paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów.
 \pgfplotsset{width=7cm,compat=1.3}
 
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
 ybar,
-enlargelimits=0.15,
-legend style={at={(0.5,-0.15)},
+enlargelimits=0.22,
+legend style={at={(3,-0.15)},
 anchor=north,legend columns=-1},
-ylabel={\#ilość błędów},
+ylabel={liczba błędów klasyfikacji},
 symbolic x coords={fsa,boltzman,},
 xtick=data,
 nodes near coords,
-nodes near coords align={vertical},
+nodes near coords align={vertical}
 ]
 \addplot coordinates {(fsa,17) (boltzman,15)};
 \addplot coordinates {(fsa,35) (boltzman,35)};
 \addplot coordinates {(fsa,20) (boltzman,20)};
+\addplot coordinates {(fsa,0)  (boltzman, 27)};
+\legend{polynomial\(^3\), tanh, polynomial\(^2\), rbf}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\paragraph {Dane pełne}.
+\pgfplotsset{width=7cm,compat=1.3}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ybar,
+enlargelimits=0.22,
+legend style={at={(3,-0.15)},
+anchor=north,legend columns=-1},
+ylabel={liczba błędów klasyfikacji},
+symbolic x coords={fsa,boltzman,},
+xtick=data,
+nodes near coords,
+nodes near coords align={vertical}
+]
+\addplot coordinates {(fsa,11) (boltzman,11)};
+\addplot coordinates {(fsa,34) (boltzman,34)};
+\addplot coordinates {(fsa,11) (boltzman,11)};
 \legend{polynomial\(^3\), tanh, polynomial\(^2\)}
+
 \end{axis}
 \end{tikzpicture}
 \end{center}
