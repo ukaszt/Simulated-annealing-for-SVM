@@ -5,6 +5,7 @@
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{pgfplots}
+\frenchspacing
 
 \begin{document}
 
@@ -22,16 +23,14 @@
 
 \section{Wstęp}
 \subsection{Treść zadania}
-Celem projektu jest implementacja matody symulowanego wyżarzania (ang. simulated annealing - SA) (kilka wariantów) do doboru wartości parametrów jąder przekształcenia w zadaniu klasyfikacyjnym. Wyznacznikiem jakości klasyfikacji jest ilość popełnianych błędów. Otrzymane wyniki należy porównać z metodą pełnego przeglądu.
+Celem projektu jest implementacja matody symulowanego wyżarzania (ang. simulated annealing - SA) w kilku wariantach do doboru wartości parametrów jąder przekształcenia w zadaniu klasyfikacyjnym. Wyznacznikiem jakości klasyfikacji jest ilość popełnianych błędów. Otrzymane wyniki należy porównać z metodą pełnego przeglądu.
 
 \subsection{Symulowane wyżarzanie}
-Symulowane wyżarzanie to rodzaj algorytmu poszukującego rozwiązania problemu optymalizacyjnego. Jest to algorytm heurystyczny, zatem znalezione rozwiązanie nie jest optymalne a jedynie do niego zbliżone. Innymi przykładami algorytmów heurytycznych stosowanymi do optymalizacji jest rodzina algorytmów ewolucyjnych, Multistart, Adaptive Random Search.
-
-Symulowane wyżarzanie często wykorzystywane jest gdy przestrzeń rozwiązań jest dyskretna. Najpowszechniejszym przykładem zadania, w który zastosowanie znajduje SA jest TSP (ang. Travelling Salesman Problem). Idea działania SA pochodzi z metalurgii i po raz pierwszy została opisana w 1953 roku. Pod wpływem wysokiej temperatury cząstki, atomy uwalniają się z pozycji, a oddając energię w czasie kontrolowanego schładzania rozkładają się w sposób bardziej systematyczny, przyjmując mniejszą wewnętrzną energię. Bazując na podobnych założeniach zaproponowano metodę symulowanego wyżarzania do rozwiązywania zadań optymalizacyjnych. 
-Algorytm znalazł szerokie zastosowanie począwszy od kolorowania i podziału grafu aż do optymalizacji rozlokowania układów elektronicznych, rekonstrukcji obrazu i geofizyki. Powszechność metody wynika głównie z łatwości implementacji w celu rozwiązania konkretnego zadania optymalizacyjnego, braku sczególnych wymagań dotyczących analizowanej / optymalizowanej funkcji a ponadto dowiedziono, że SA asymptotycznie dąży do globalnego minimum \cite{varts00}. Dodatową cechą algorytmu jest unikanie pułapek związanymi z minimami lokalnymi . Dzieje się tak, gdyż w określonych przypadkach, SA zezwala na przyjęcie gorszego rozwiązania niż aktualnie najlepsze.
+Symulowane wyżarzanie to rodzaj algorytmu poszukującego rozwiązania problemu optymalizacyjnego. Jest to algorytm heurystyczny, zatem znalezione rozwiązanie nie jest optymalne, a jedynie do niego zbliżone. Innymi przykładami algorytmów heurytycznych stosowanymi do optymalizacji jest rodzina algorytmów ewolucyjnych, Multistart, Adaptive Random Search.\linebreak
+Symulowane wyżarzanie często wykorzystywane, jest gdy przestrzeń rozwiązań jest dyskretna. Najpowszechniejszym przykładem zadania, w który zastosowanie znajduje SA jest TSP (ang. Travelling Salesman Problem). Idea działania SA pochodzi z metalurgii i po raz pierwszy została opisana w 1953 roku. Pod wpływem wysokiej temperatury cząstki, atomy uwalniają się z pozycji, a oddając energię w czasie kontrolowanego schładzania rozkładają się w sposób bardziej systematyczny, przyjmując mniejszą wewnętrzną energię. Bazując na podobnych założeniach zaproponowano metodę symulowanego wyżarzania do rozwiązywania zadań optymalizacyjnych. \linebreak Algorytm znalazł szerokie zastosowanie począwszy od kolorowania i podziału grafu aż do optymalizacji rozlokowania układów elektronicznych, rekonstrukcji obrazu i geofizyki. Powszechność metody wynika głównie z łatwości implementacji w celu rozwiązania konkretnego zadania optymalizacyjnego, braku sczególnych wymagań dotyczących analizowanej / optymalizowanej funkcji a ponadto dowiedziono, że SA asymptotycznie dąży do globalnego minimum \cite{varts00}. Dodatową cechą algorytmu jest unikanie pułapek związanymi z minimami lokalnymi . Dzieje się tak, gdyż w określonych przypadkach, SA zezwala na przyjęcie gorszego rozwiązania niż aktualnie najlepsze.
 
 \subsubsection{Ogólny opis algorytmu}
-    Algorytm symulowanego wyżarzania łatwo rozpatrywać dzieląc na 4 fazy: generowanie nowego, następnego stanu, sprawdzenie warunku akceptacji, redukcja parametrów sterujących, sprawdzenie warunku stopu.
+Algorytm symulowanego wyżarzania łatwo rozpatrywać dzieląc na 4 fazy: generowanie nowego, następnego stanu, sprawdzenie warunku akceptacji, redukcja parametrów sterujących, sprawdzenie warunku stopu.
     \begin{algorithm}
         \caption{Generyczna postać algorytmu symulowanego wyżarzania}
         \begin{algorithmic}
@@ -46,12 +45,12 @@ Algorytm znalazł szerokie zastosowanie począwszy od kolorowania i podziału gr
         \end{algorithmic}
     \end{algorithm}
     
-    \paragraph{Generowanie nowego stanu.}
-    Generowanie nowego stanu, punktu jest bardzo istotnym etapem. Sposób wytwarzania nowych punktów wpływa w oczywisty sposób na wydajność algorytmu. Po kilku iteracjach algorytmu, powinno się uzyskiwać coraz niższe wartości funkcji. Z tego powodu dopasowanie metody generowania punktów do problemu jest bardzo istotne z punktu widzenia działnia algorytmu. W przypadku TSP, proponowanym sposobem na wyznaczenie kolejnych stanów jest zamiana kolejności w losowo wybranej parze kolejnych miast na drodze komiwojażera.
-    Punkt startowy algorytmu jest często poprostu losowany. Jednakże, w wielu arytułach pojawiają się sugestię, aby dobrać początkowy stan po uprzedniej analizie problemu.
+\paragraph{Generowanie nowego stanu.}
+Jest to bardzo istotny etap. Sposób wytwarzania nowych punktów wpływa w oczywisty sposób na wydajność algorytmu. Po kilku iteracjach algorytmu, powinno się uzyskiwać coraz niższe wartości funkcji. Z tego powodu dopasowanie metody generowania punktów do problemu jest bardzo istotne z punktu widzenia działnia algorytmu. W przypadku TSP, proponowanym sposobem na wyznaczenie kolejnych stanów jest zamiana kolejności w losowo wybranej parze kolejnych miast na drodze komiwojażera.
+\paragraph*{Punkt startowy} algorytmu jest często poprostu losowany. Jednakże, w wielu arytułach pojawiają się sugestię, aby dobrać początkowy stan po uprzedniej analizie problemu.
 
-    \paragraph{Kryterium akceptacji.}
-    Kryterium akceptacji pozwala SA na uniknięcie pułapki związanej z minimum lokalnym, kiedy poszukiwane jest minimum globalne. Dodatkowo w każdej kolejnej iteracji, prawdopodobieństwo tego że nowe, ale gorsze rozwiązanie zostanie zaakceptowane jest coraz mniejsze. Z tego wynika, że pod koniec działania algorytm koncentruje się na poprawianiu precyzji uzyskanego wyniku.
+\paragraph{Kryterium akceptacji.}
+Pozwala ono SA na uniknięcie pułapki związanej z minimum lokalnym, kiedy poszukiwane jest minimum globalne. Dodatkowo w każdej kolejnej iteracji, prawdopodobieństwo tego że nowe, ale gorsze rozwiązanie zostanie zaakceptowane jest coraz mniejsze. Z tego wynika, że pod koniec działania algorytm koncentruje się na poprawianiu precyzji uzyskanego wyniku.
 Najczęściej stosowanym kryterium akceptacji jest kryterium Metropolisa.
 
 \[
@@ -119,8 +118,9 @@ Testy zostaną przeprowadzone dla jąder: wielomianowego, tangensa hiperboliczne
 Podział danych na dwie klasy jest często nie wystarczający. Aby rozszerzyć możliwości SVM o kategoryzację do kilku klas, wykorzystuje się kilka, niezależnie trenowanych binarnych SVM i definiuje strategię przydziału nowego wektora do jednej z istniejących klas. Jedną z takich strategii jest ,,one-versus-all''. Metoda polega na utworzeniu, w przypadku M klas, M binarnych maszyn SVM w których podział następuje między jedną z dostępnych klas a pozostałymi ( M - 1) klasami. Przydział testowego wektora do klasy odbywa się na zasadzie winner-takes-all.
 Inne możliwe metody budowy wieloklasowego SVM to ,,one-against-one'' lub ,,DAGSVM''.
  
-
+\pagebreak
 \section{Założenie projektowe}
+Cele postawione przed niniejszym projektem:
 \begin{enumerate}
 \item Porównanie wyników dla dwóch rodzajów jąder przekształcenia klasyfikacyjnego algorytmu SVM - zadane jako parametr wejściowy
 \item Wykorzystanie metody symulowanego wyżarzania w dwóch wariantach: Bolztmanna oraz FSA - zadane jako parametr wejściowy
@@ -128,13 +128,13 @@ Inne możliwe metody budowy wieloklasowego SVM to ,,one-against-one'' lub ,,DAGS
 \item Na wejściu nadesłane dane trenujące i testowe, na wyjściu przydział wektorów do klas diagram popełnionych błędów
 \item Kryterium stopu - określona liczba iteracji zadana jako parametr wejściowy
 \end{enumerate}
-\paragraph{Testy.}
+\paragraph{Testowanie.}
 Działanie dobranych parametrów dla jąder przekształceń przetestowane zostanie na przygotowanych wcześniej danych. Dane wejściowe treningowe, jak również dane testowe program przyjmnie w postaci wektorów liczb rzeczywistych, gdzie ostatnią składową wektora, będzie wartość liczbowa, wyznaczająca kategorię do której on przynależy. Wektory, zapisane będą w pliku tekstowym w postaci liczb zmiennoprzecinkowych o zapisie wykładniczym oddzielonych białym znakiem.
 \paragraph{Złożoność obliczeniowa i czas wykonania.}
 Szacowanie złożoności obliczeniowej oraz czasu wykonania dla całego rozwiązania dekomponuje się na złożoność i czas wykonania odpowiednio dla algorytmu wyżarzania oraz  algorytmu treningu klasyfikatora SVM, ponieważ w kroku, w którym ewaluowana jest wartość bieżącego znalezionego rozwiązania dla wyżarzania, trzeba będzie wykonać trening i testowanie danych przy użyciu SVM.
-Będziemy posługiwać się pesymistyczną złożonością obliczeniową dla każdego z przypadków. Dla algorytmu symulowanego wyżarzania jest ona wielomianowa dla każdej składowej problemu, co w przypadku sumy złożonośc i przy doborze kilku parametrów pozostawia ją wielomianową. W przypadku algorytmu treningowego, parametrem złożoności klasyfikacji, będzie ilość danych wektorów wejściowych. Z dotychczasowej analizy dostępnych źródeł ustaliliśmy, że złożoność ta jest liniowa z ewentualnym doprecyzowaniem ilością wymiarów wektorów. W konkluzji, przyjąć można, że złożoność rożwiązania będzie wilomianowa.
+Będziemy posługiwać się pesymistyczną złożonością obliczeniową dla każdego z przypadków. Dla algorytmu symulowanego wyżarzania jest ona wielomianowa dla każdej składowej problemu, co w przypadku sumy złożoności przy doborze kilku parametrów pozostawia ją wielomianową. W przypadku algorytmu treningowego, parametrem złożoności klasyfikacji, będzie ilość danych wektorów wejściowych. Z dotychczasowej analizy dostępnych źródeł ustaliliśmy, że złożoność ta jest liniowa z ewentualnym doprecyzowaniem ilością wymiarów wektorów. W konkluzji, przyjąć można, że złożoność rożwiązania będzie wilomianowa.
 \paragraph{Prezentacja wyników.}
-Wyniki porównania jakości doboru parametrów jąder przekształceń zaprezentowane zostaną na wykresach obrazujących ilość błędów klasyfikacji i czasy wykonania dla poszczególnych typów jąder przekształceń i rodzajów symulowanego wyżarzania. 
+Wyniki porównania jakości doboru parametrów jąder przekształceń zaprezentowane zostaną na wykresach obrazujących liczbę błędów klasyfikacji w zależności od wybranego jądra z podziałem na rodzaj danych (zredukowane i pełne) oraz podziałem na rodzaj symulowanego wyżarzania FSA (ang. Fast Simulated Annealing) oraz Boltzmann. Czasy wykonania dla poszczególnych typów jąder przekształceń nie będą zmienną, gdyż kryterium stopu obrane dla algorytmu jest kryterium czasu tzn. czas jest taki sam dla wszystkich porównywanych przypadków. 
 \section{Środowisko realizacji}
 Ze względu na bardzo dużą ilość matematyki w projekcie zdecydowaliśmy się na realizację projektu w programie MATLAB. Na korzyść wybory wpływa dostępność prostej maszyny SVM zaimplementowanej w Bioinformatics Toolbox oraz funkcji realizującej symulowane wyżarzanie o dużych możliwościach konfiguracyjnych dostępnej w Global Optimization Toolbox. Dzięki temu można skoncentrować się na rozwiązaniu problemu bez konieczności implementowania wszystkich algorytmów składowych.
 \subsection{Symulowane wyżarzanie}
@@ -164,28 +164,29 @@ Opcja & Opis \\ \hline \hline
 W celu zbudowania klasyfikatora wykorzystującego SVM należy wykorzystać 2 funkcje. Pierwsza z nich \texttt{svmtrain}  służy trenowaniu klasyfikatora. Jako parametry przyjmuje wektor danych i wektor klas. Możliwe jest tez podanie dodatkowych parametrów kontrolnych. Jednym z nich jest \texttt{kernelfunction} umożliwiający wskazanie funkcji wykonującej przkształcenie. Oprócz predefiniowanych wartości takich jak \texttt{linear}, \texttt{quadratic}, \texttt{polynomial}, można równiez wskazać uchwyt do samodzielnie zdefiniowanej funkcji.
 Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry wejściowe to klasyfikator - rezultat \texttt{svmtrain} oraz dane które chcemy przydzielić do jednej z dwóch klas. Opcjonalnie można wygenerować wykres ilustrujący rezultat klasyfikacji.
 
+\pagebreak
 \section{Wyniki testów i wnioski}
 \subsection{Błędy a typ jądra}
 \paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów.
-\pgfplotsset{width=7cm,compat=1.3}
+\pgfplotsset{width=6cm,compat=1.4}
 
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
 ybar,
 enlargelimits=0.4,
-legend style={at={(0.7,-0.15)},
+legend style={at={(1.2,-0.15)},
 anchor=north,legend columns=-1},
 ylabel={liczba błędów klasyfikacji},
-symbolic x coords={fsa,boltzman,},
+symbolic x coords={FSA,Boltzmann,},
 xtick=data,
 nodes near coords,
 nodes near coords align={vertical}
 ]
-\addplot coordinates {(fsa,17) (boltzman,15)};
-\addplot coordinates {(fsa,35) (boltzman,35)};
-\addplot coordinates {(fsa,20) (boltzman,20)};
-\addplot coordinates {(fsa,0)  (boltzman, 27)};
+\addplot coordinates {(FSA,17) (Boltzmann,15)};
+\addplot coordinates {(FSA,35) (Boltzmann,35)};
+\addplot coordinates {(FSA,20) (Boltzmann,20)};
+\addplot coordinates {(FSA,0)  (Boltzmann, 27)};
 \legend{polynomial\(^3\), tanh, polynomial\(^2\), rbf}
 
 \end{axis}
@@ -193,24 +194,24 @@ nodes near coords align={vertical}
 \end{center}
 
 \paragraph {Dane pełne}.
-\pgfplotsset{width=7cm,compat=1.3}
+\pgfplotsset{width=7cm,compat=1.4}
 
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
 ybar,
 enlargelimits=0.4,
-legend style={at={(0.7,-0.15)},
+legend style={at={(1.2,-0.15)},
 anchor=north,legend columns=-1},
 ylabel={liczba błędów klasyfikacji},
-symbolic x coords={fsa,boltzman,},
+symbolic x coords={FSA,Boltzmann,},
 xtick=data,
 nodes near coords,
 nodes near coords align={vertical}
 ]
-\addplot coordinates {(fsa,11) (boltzman,11)};
-\addplot coordinates {(fsa,34) (boltzman,34)};
-\addplot coordinates {(fsa,11) (boltzman,11)};
+\addplot coordinates {(FSA,11) (Boltzmann,11)};
+\addplot coordinates {(FSA,34) (Boltzmann,34)};
+\addplot coordinates {(FSA,11) (Boltzmann,11)};
 \legend{polynomial\(^3\), tanh, polynomial\(^2\)}
 
 \end{axis}
