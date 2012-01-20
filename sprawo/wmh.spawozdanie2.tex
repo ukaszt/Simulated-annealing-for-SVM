@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{algorithmic}
 \usepackage{algorithm}
+\usepackage{pgfplots}
 
 \begin{document}
 
@@ -162,6 +163,31 @@ Opcja & Opis \\ \hline \hline
 \subsection{SVM}
 W celu zbudowania klasyfikatora wykorzystującego SVM należy wykorzystać 2 funkcje. Pierwsza z nich \texttt{svmtrain}  służy trenowaniu klasyfikatora. Jako parametry przyjmuje wektor danych i wektor klas. Możliwe jest tez podanie dodatkowych parametrów kontrolnych. Jednym z nich jest \texttt{kernelfunction} umożliwiający wskazanie funkcji wykonującej przkształcenie. Oprócz predefiniowanych wartości takich jak \texttt{linear}, \texttt{quadratic}, \texttt{polynomial}, można równiez wskazać uchwyt do samodzielnie zdefiniowanej funkcji.
 Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry wejściowe to klasyfikator - rezultat \texttt{svmtrain} oraz dane które chcemy przydzielić do jednej z dwóch klas. Opcjonalnie można wygenerować wykres ilustrujący rezultat klasyfikacji.
+
+\section{Wyniki testów i wnioski}
+\subsection{Błędy a typ jądra}
+\pgfplotsset{width=7cm,compat=1.3}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ybar,
+enlargelimits=0.15,
+legend style={at={(0.5,-0.15)},
+anchor=north,legend columns=-1},
+ylabel={\#ilość błędów},
+symbolic x coords={fsa,boltzman,},
+xtick=data,
+nodes near coords,
+nodes near coords align={vertical},
+]
+\addplot coordinates {(fsa,17) (boltzman,15)};
+\addplot coordinates {(fsa,35) (boltzman,35)};
+\addplot coordinates {(fsa,20) (boltzman,20)};
+\legend{polynomial\(^3\), tanh, polynomial\(^2\)}
+\end{axis}
+\end{tikzpicture}
+\end{center}
 
 \begin{thebibliography}{9}
 \bibitem{intr00}
