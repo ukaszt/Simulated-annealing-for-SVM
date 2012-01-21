@@ -5,7 +5,6 @@
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{pgfplots}
-\frenchspacing
 
 \begin{document}
 
@@ -47,7 +46,7 @@ Algorytm symulowanego wyżarzania łatwo rozpatrywać dzieląc na 4 fazy: genero
     
 \paragraph{Generowanie nowego stanu.}
 Jest to bardzo istotny etap. Sposób wytwarzania nowych punktów wpływa w oczywisty sposób na wydajność algorytmu. Po kilku iteracjach algorytmu, powinno się uzyskiwać coraz niższe wartości funkcji. Z tego powodu dopasowanie metody generowania punktów do problemu jest bardzo istotne z punktu widzenia działnia algorytmu. W przypadku TSP, proponowanym sposobem na wyznaczenie kolejnych stanów jest zamiana kolejności w losowo wybranej parze kolejnych miast na drodze komiwojażera.
-\paragraph*{Punkt startowy} algorytmu jest często poprostu losowany. Jednakże, w wielu arytułach pojawiają się sugestię, aby dobrać początkowy stan po uprzedniej analizie problemu.
+\paragraph*{Punkt startowy} algorytmu jest często poprostu losowany. Jednakże, w wielu arytułach pojawiają się sugestie, aby dobrać początkowy stan po uprzedniej analizie problemu.
 
 \paragraph{Kryterium akceptacji.}
 Pozwala ono SA na uniknięcie pułapki związanej z minimum lokalnym, kiedy poszukiwane jest minimum globalne. Dodatkowo w każdej kolejnej iteracji, prawdopodobieństwo tego że nowe, ale gorsze rozwiązanie zostanie zaakceptowane jest coraz mniejsze. Z tego wynika, że pod koniec działania algorytm koncentruje się na poprawianiu precyzji uzyskanego wyniku.
@@ -159,23 +158,25 @@ Opcja & Opis \\ \hline \hline
 \end{tabular}
 \end{table}
 
-
 \subsection{SVM}
 W celu zbudowania klasyfikatora wykorzystującego SVM należy wykorzystać 2 funkcje. Pierwsza z nich \texttt{svmtrain}  służy trenowaniu klasyfikatora. Jako parametry przyjmuje wektor danych i wektor klas. Możliwe jest tez podanie dodatkowych parametrów kontrolnych. Jednym z nich jest \texttt{kernelfunction} umożliwiający wskazanie funkcji wykonującej przkształcenie. Oprócz predefiniowanych wartości takich jak \texttt{linear}, \texttt{quadratic}, \texttt{polynomial}, można równiez wskazać uchwyt do samodzielnie zdefiniowanej funkcji.
 Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry wejściowe to klasyfikator - rezultat \texttt{svmtrain} oraz dane które chcemy przydzielić do jednej z dwóch klas. Opcjonalnie można wygenerować wykres ilustrujący rezultat klasyfikacji.
 
 \pagebreak
-\section{Wyniki testów i wnioski}
+\section{Testowanie i wnioski}
+\subsection{Kryterium stopu}
+Dla wykonanych testów, jako podstawowe kryterium stopu obrano czas, aby móc wykonać większą liczbę testów. Arbitralnie, na jeden test obrano limit czasu 300 sekund.
 \subsection{Błędy a typ jądra}
-\paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów.
+\paragraph{}
+Testy przeprowadzono dla dwóch zbiorów danych: \textit{zawężonych} i \textit{pełnych}.
+\paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów. Dane znajdują się w pliku: \textit{rs train7 short.csv}, a testujące w pliku \textit{rs test7 short.csv}. Dane te przedstawiono na poniższym wykresie:
 \pgfplotsset{width=6cm,compat=1.4}
-
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
 ybar,
 enlargelimits=0.4,
-legend style={at={(0.5,-0.15)},
+legend style={at={(0.5,-0.25)},
 anchor=north,legend columns=-1},
 ylabel={liczba błędów klasyfikacji},
 symbolic x coords={FSA,Boltzmann,},
@@ -193,15 +194,26 @@ nodes near coords align={vertical}
 \end{tikzpicture}
 \end{center}
 
-\paragraph {Dane pełne}.
-\pgfplotsset{width=7cm,compat=1.4}
+Dla tego zestawu danych w wyniku uzyskano następujące wartości parametrów jąder:
 
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | }
+    \hline
+    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} & \textbf{rbf} \\ \hline
+    FSA & 4.7243, -8.6634 & 0, 0 & -7.6178, 7.9733 & - \\ \hline
+	Boltzmann & 8.4878, 9.9313 & 0, 0 & -8.4375, 7.9898 & 4.4031\\ \hline
+    \end{tabular}
+\end{center}
+
+\paragraph {Dane pełne.} 
+Wyniki po trenowaniu na zbiorze \textit{rs train5 no headers} i testowaniu na zbiorze \textit{rs test5 no headers}.
+\pgfplotsset{width=7cm,compat=1.4}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
 ybar,
 enlargelimits=0.4,
-legend style={at={(0.5,-0.15)},
+legend style={at={(0.5,-0.25)},
 anchor=north,legend columns=-1},
 ylabel={liczba błędów klasyfikacji},
 symbolic x coords={FSA,Boltzmann,},
@@ -217,6 +229,56 @@ nodes near coords align={vertical}
 \end{axis}
 \end{tikzpicture}
 \end{center}
+
+\paragraph{}
+Wyniki po trenowaniu na zbiorze \textit{rs train7 no headers} i testowaniu na zbiorze \textit{rs test7 no headers}.
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | }
+    \hline
+    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} \\ \hline
+    FSA & 6.7973, 5.0605 & -3.4106, -3.4106 & 8.2822, -8.2822 \\ \hline
+	Boltzmann & 2.0868, -9.7798 & 5.5106, 8.3447 & 8.9050, -4.5498 \\ \hline
+    \end{tabular}
+\end{center}
+
+
+\pgfplotsset{width=7cm,compat=1.4}
+
+\paragraph{}
+Wyniki po trenowaniu na zbiorze \textit{rs train7 no headers} i testowaniu na zbiorze \textit{rs test7 no headers}.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ybar,
+enlargelimits=0.4,
+legend style={at={(0.5,-0.25)},
+anchor=north,legend columns=-1},
+ylabel={liczba błędów klasyfikacji},
+symbolic x coords={FSA,Boltzmann,},
+xtick=data,
+nodes near coords,
+nodes near coords align={vertical}
+]
+\addplot coordinates {(FSA,11) (Boltzmann,11)};
+\addplot coordinates {(FSA,34) (Boltzmann,34)};
+\addplot coordinates {(FSA,11) (Boltzmann,11)};
+\legend{polynomial\(^3\), tanh, polynomial\(^2\)}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Dla tego zestawu danych w wyniku uzyskano następujące wartości parametrów jąder:
+
+\begin{center}
+    \begin{tabular}{ | c | c | c | c | c | }
+    \hline
+    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} \\ \hline
+    FSA & 1.2699 1.2699 & 0, 0 & -3.9096 -9.7767 \\ \hline
+	Boltzmann & 3.4726 -9.3574 & 0, 0 & -1.0261 -4.8345 \\ \hline
+    \end{tabular}
+\end{center}
+
 \pagebreak
 \begin{thebibliography}{9}
 \bibitem{intr00}
