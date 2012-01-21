@@ -1,11 +1,11 @@
-function wmh_solve(kernel_type)
+function wmh_solve(kernel_type, time, safun)
 
-    %trn = dlmread('data/rs_train5_no_headers.txt');
-    %tst = dlmread('data/rs_test5_no_headers.txt');
+    trn = dlmread('data/rs_train7_no_headers.txt');
+    tst = dlmread('data/rs_test7_no_headers.txt');
     
     
-    tst = dlmread('data/rs_test7_short.csv', ',');
-    trn = dlmread('data/rs_train7_short.csv', ',');
+    %tst = dlmread('data/rs_test7_short.csv', ',');
+    %trn = dlmread('data/rs_train7_short.csv', ',');
     
     %trn = dlmread('data/mltclass_train.txt');
     %tst = dlmread('data/mltclass_test.txt');
@@ -19,16 +19,20 @@ function wmh_solve(kernel_type)
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));     
-        case 'polynomial'
-            p0 = [0 0 ];
+        case 'polynomial3'
+            p0 = [0 0];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_polynomial(u, v, p(1), p(2), 3));
+        case 'polynomial2'
+            p0 = [0 0];
+            min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
+                tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
+                @(u, v) kernel_polynomial(u, v, p(1), p(2), 2));
         case 'rbf'
-            p0 = [-3];
+            p0 = [1];
             min_fun = @(p) svmsa(trn(:, 1:end - 1), trn(:, end), ...
-                tst(:, 1:end - 1), tst(:, end),  ...
-                @(u, v) kernel_rbf(u, v, p(1)));
+                tst(:, 1:end - 1), tst(:, end), 'rbf');
         case 'tanh'
             p0 = [0 0];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
@@ -36,7 +40,7 @@ function wmh_solve(kernel_type)
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));
     end
     
-    options = saoptimset('TimeLimit', 600, 'AnnealingFcn' ,@annealingboltz);
+    options = saoptimset('TimeLimit', time, 'AnnealingFcn', safun);
     [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, [-10 -10], [10 10], options);
     
     x
