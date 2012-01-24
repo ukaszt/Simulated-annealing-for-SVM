@@ -279,6 +279,33 @@ Dla tego zestawu danych w wyniku uzyskano następujące wartości parametrów j�
     \end{tabular}
 \end{center}
 
+\paragraph {Funkcje jąder wbudowane w środowisko MatLab.} Dla porównania jakości klasyfikacji przy użyciu jąder z zaproponowanymi przez autora funkcjami przekształceń, zastosowano jądra dostępne w środowisku MatLab. Ilość błędów klasafikacji zaprezentowano na poniższym wykresie.
+\pgfplotsset{width=6cm,compat=1.4}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ybar,
+enlargelimits=0.4,
+legend style={at={(0.5,-0.25)},
+anchor=north,legend columns=-1},
+ylabel={liczba błędów klasyfikacji},
+symbolic x coords={FSA},
+xtick=data,
+nodes near coords,
+nodes near coords align={vertical}
+]
+\addplot coordinates {(FSA,16)};
+\addplot coordinates {(FSA,35)};
+\addplot coordinates {(FSA,32)};
+\addplot coordinates {(FSA,35)};
+\legend{polynomial3, quadratic, rbf, mlp}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Zgodnie ze spodziewaniami, wyniki są gorsze od wyników przy zastosowaniu zaproponowanych funkcji.
+
 \subsection{Wnioski.}
 Zarówno dla danych trenujących pełnych jak i zredukowanych, przy zastosowaniu metody wieloklasowej 
 masznyny wektorów podpierających, jądrem które osiągnęło najmniejszy wskaźnik błędu jest jądro wielomianowe
