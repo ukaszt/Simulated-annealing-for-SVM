@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.17)  21 JAN 2012 01:44
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.17)  24 JAN 2012 12:12
 entering extended mode
 **./wmh.spawozdanie2.tex
 (C:\Users\luk\github\Simulated-annealing-for-SVM\sprawo\wmh.spawozdanie2.tex
@@ -790,7 +790,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 28--30
  []
 
 ! I can't write on file `wmh.spawozdanie2.pdf'.
-Please type another file name for output: s3.pdf
+Please type another file name for output: pdf.pdf
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
@@ -808,13 +808,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 96--99
 
  []
 
-[3] [4] [5] [6] [7] [8] [9] [10] [11]
+[3] [4] [5] [6] [7] [8] [9] [10] [11] [12]
 (C:\Users\luk\github\Simulated-annealing-for-SVM\sprawo\wmh.spawozdanie2.aux) )
  
 Here is how much of TeX's memory you used:
  17364 strings out of 494045
- 406898 string characters out of 3145975
- 520805 words of memory out of 3000000
+ 406900 string characters out of 3145975
+ 520806 words of memory out of 3000000
  20321 multiletter control sequences out of 15000+200000
  13078 words of font info for 33 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
@@ -838,9 +838,9 @@ les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKT
 eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on s3.pdf (11 pages, 226260 bytes).
+Output written on pdf.pdf (12 pages, 228964 bytes).
 PDF statistics:
- 449 PDF objects out of 1000 (max. 8388607)
+ 456 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
