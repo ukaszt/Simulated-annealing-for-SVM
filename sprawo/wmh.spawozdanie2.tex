@@ -306,6 +306,33 @@ nodes near coords align={vertical}
 
 Zgodnie ze spodziewaniami, wyniki są gorsze od wyników przy zastosowaniu zaproponowanych funkcji.
 
+\subsection{Jakość doboru parametrów a ilość iteracji}
+\paragraph{}
+Przeprowadzono również test pokazujący jakość doboru parametrów przekształcenia od ilości iteracji. Okazało się, że wpływu na tę jakość nie ma ani funkcja zmiany temperatury, ani też wybrana temperatura początkowa (stosowano wartości 100, 500 i 2000). Największy wpływ natomiast miała wybrana funkcja przekształcenia jądra. Dane w uśrednionej postaci prezentuje poniższy wykres:
+
+\pgfplotsset{width=7cm,compat=1.4}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ybar,
+enlargelimits=0.4,
+legend style={at={(0.5,-0.64)},
+anchor=north,legend columns=-1},
+ylabel={ },
+symbolic x coords={polynomial3, polynomial2, tanh},
+xtick=data,
+nodes near coords,
+nodes near coords align={vertical},
+x tick label style={rotate=90, anchor=east},
+]
+\addplot coordinates {(polynomial3,16) (polynomial2,16) (tanh,35)};
+\addplot coordinates {(polynomial3,4) (polynomial2,10) (tanh,10)};
+\legend{bledow, iteracji}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
 \subsection{Wnioski.}
 Zarówno dla danych trenujących pełnych jak i zredukowanych, przy zastosowaniu metody wieloklasowej 
 masznyny wektorów podpierających, jądrem które osiągnęło najmniejszy wskaźnik błędu jest jądro wielomianowe
