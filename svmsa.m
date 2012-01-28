@@ -19,6 +19,8 @@ function [ errorn ] = svmsa(trnd, trng, tstd, tstg, kernel)
                 [clsa(:, end); clsb(:, end)], 'kernel_function', kernel, ... 
                 'showplot', false, 'autoscale', false, 'method', 'LS');
             
+            disp('after train')
+            
             itr2=1;
             while itr2 <= tstno(1)
                 res = svmclassify(svmclsfr, tstd(itr2, :));
