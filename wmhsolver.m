@@ -9,7 +9,7 @@ numoptargs = nargin - 2;
 optargs = varargin;
 
 if  numoptargs >= 1
-    okargs = {'method', 'kernel_function', 'variant'};
+    okargs = {'method', 'kernel_function', 'variant', 'iter'};
     
     for j=1:2:numoptargs
         pname = optargs{j};
@@ -57,12 +57,22 @@ if  numoptargs >= 1
                         saopt = saoptimset('AnnealingFcn', annealingFcn, ...
                             'TemperatureFcn', temperatureFcn);
                     end
+                case 4 % iters
+                    if isnumeric(pval)
+                        saopt = saoptimset('MaxIter', pval);
+                    else
+                        error('WMH:wmhsolve', 'Invalid argument for iter');
+                    end
             end
         end
 
     end
 end
 
+% losowanie punktu startowego - jesli szerokosc przedzialu to +/-10
+% wyres bledow od iteracji
+% wykres czasu iteracji
+% wykres bledow iteracji
 if strcmpi(cmethod, 'annealing')
     annealing(trn, tst, kfun, saopt);
 else
