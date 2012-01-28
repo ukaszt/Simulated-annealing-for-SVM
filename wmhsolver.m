@@ -4,6 +4,7 @@ function [ output_args ] = wmhsolver(trn, tst, varargin)
 cmethod = 'annealing';
 kfun = 'poly3 ';
 saopt = saoptimset('simulannealbnd');
+sigma = 1;
 
 numoptargs = nargin - 2;
 optargs = varargin;
@@ -28,7 +29,7 @@ if  numoptargs >= 1
                     end
                     
                 case 2 % kernel_function
-                    okfuns = { 'poly2', 'poly3', 'rbf', 'tan', 'linear'};
+                    okfuns = { 'poly2', 'poly3', 'rbf', 'tanh', 'linear'};
                     funNum = strmatch(lower(pval), okfuns);
                     if isempty(funNum)
                         error('WMH:wmhsolver', ... 
@@ -38,7 +39,7 @@ if  numoptargs >= 1
                     end
                 case 3 % variant
                     if ischar(pval)
-                        okvariants = { 'boltz', 'fast' }
+                        okvariants = { 'boltz', 'fast' };
                         varNum = strmatch(lower(pval), okvariants);
                         if isempty(varNum)
                             varNum = 0;
@@ -54,12 +55,12 @@ if  numoptargs >= 1
                                 error('WMH:wmhsolver', ...
                                     'Unknown annealing variant');
                         end
-                        saopt = saoptimset('AnnealingFcn', annealingFcn, ...
+                        saopt = saoptimset(saopt, 'AnnealingFcn', annealingFcn, ...
                             'TemperatureFcn', temperatureFcn);
                     end
                 case 4 % iters
                     if isnumeric(pval)
-                        saopt = saoptimset('MaxIter', pval);
+                        saopt = saoptimset(saopt, 'MaxIter', pval);
                     else
                         error('WMH:wmhsolve', 'Invalid argument for iter');
                     end
@@ -69,12 +70,15 @@ if  numoptargs >= 1
     end
 end
 
+saopt
+
+% RBF
 % losowanie punktu startowego - jesli szerokosc przedzialu to +/-10
 % wyres bledow od iteracji
 % wykres czasu iteracji
 % wykres bledow iteracji
 if strcmpi(cmethod, 'annealing')
-    annealing(trn, tst, kfun, saopt);
+    annealing(trn, tst, kfun, 60, saopt);
 else
     disp('FULL')
 
