@@ -39,42 +39,49 @@ function ret = wmh_solve(kernel_type, time, safun)
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));
     end
     
-    lbs = [[-10 -10]; [0 0]];
-    ubs = [[10 10]; [20 20]];
-    p0s = [[0 0]; [10 10]];
-    inittemps = [2000 1000 100];
+    lbs = [[-10 -10];[0 0]];
+    ubs = [[10 10];[0 0]];
+    p0s = [[0 0];[0 0]];
     
-    combs = [
-     1 1
-     1 2
-     1 3
-     2 1
-     2 2
-     2 3];
+    tempfuns = cell(1,3);
+    tempfuns{1} = [@temperatureboltz];
+    tempfuns{2} = [@temperaturefast];
+    tempfuns{3} = [@temperatureexp];
+    inittemps = [100 500 2000];
     
-    ret = zeros(1, 6);
-    for ii=1:6,
-        disp(sprintf('lb: %d %d, ub: %d %d, p0: %d %d, inittemp: %d', ...
-            lbs(combs(ii, 1),:), ubs(combs(ii, 1),:), p0s(combs(ii, 1),:), inittemps(combs(ii, 2))));
+    combs = [1 1
+        1 2
+        1 3
+        2 1
+        2 2
+        2 3
+        3 1
+        3 2
+        3 3];
+    combsn = size(combs);
+ 
+    ret = zeros(1, 4);
+    for ii=1:combsn(1),
+        disp(sprintf('ii: %d', ii));
         
-        options = saoptimset('TimeLimit', time, 'AnnealingFcn', safun);
-        options = saoptimset('InitialTemperature', inittemps(combs(ii, 2)));
-        [x, fval, exitflag, output] = simulannealbnd(min_fun, p0s(combs(ii, 1),:), lbs(combs(ii, 1),:), ubs(combs(ii, 1),:), options);
+        basicOpts = saoptimset('simulannealbnd');
+        options = saoptimset(basicOpts, 'TimeLimit', time, 'AnnealingFcn', safun, ...
+                            'InitialTemperature', inittemps(combs(ii, 2)),...
+                            'TemperatureFcn', tempfuns{combs(ii, 1)});
+        [x, fval, exitflag, output] = simulannealbnd(min_fun, p0s(1,:), lbs(1,:), ubs(1,:), options);
 
         fintemp  = getfield(output, 'temperature');
         numiter  = getfield(output, 'iterations');
         totime   = getfield(output, 'totaltime');
                 
-        %disp(sprintf('x: %d, fval: %d, final temp: %d, %d', ...
-        %            x, fval, temp));
-        disp('fval numiter totime fintemp')
-        disp('next result calculated')
+        disp('fval numiter totime fintemp');
         result = [fval numiter totime fintemp(1)];
-        ret = vertcat(ret, result)
+        ret = vertcat(ret, result);
     end
-    ret=ret(2:7,:)
+    ret=ret(2:end,:);
     %hold on
     %svm_classfier = svmtrain(trn(:, 1:(trn_c - 1)), trn(:, trn_c), ...
     %    'kernel_function', @(u, v) kernel_polynomial(u, v, x(1), x(2), 3), ...
     %    'autoscale', false, 'showplot', false);
-    %groups = svmclassify(svm_classfier, tst(:, 1:tst_c - 1), 'showplot', true)
+    %groups = svmclassify(svm_classfier, tst(:, 1:tst_c - 1), 'showplot',
+    %true)
