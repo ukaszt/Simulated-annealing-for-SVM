@@ -29,7 +29,8 @@ if  numoptargs >= 1
                     end
                     
                 case 2 % kernel_function
-                    okfuns = { 'poly2', 'poly3', 'rbf', 'tanh', 'linear'};
+                    okfuns = { 'poly2', 'poly3', 'tanh', 'linear' ...
+                        'matlab_poly3', 'matlab_rbf'};
                     funNum = strmatch(lower(pval), okfuns);
                     if isempty(funNum)
                         error('WMH:wmhsolver', ... 
@@ -70,17 +71,13 @@ if  numoptargs >= 1
     end
 end
 
-saopt
-
-% RBF
 % losowanie punktu startowego - jesli szerokosc przedzialu to +/-10
 % wyres bledow od iteracji
-% wykres czasu iteracji
 % wykres bledow iteracji
 if strcmpi(cmethod, 'annealing')
+    saopt
     annealing(trn, tst, kfun, 60, saopt);
 else
-    disp('FULL')
-
+    fullsearch(trn, tst, kfun);
 end
 
