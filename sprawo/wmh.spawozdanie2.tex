@@ -168,7 +168,7 @@ Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry w
 Dla wykonanych testów, jako podstawowe kryterium stopu obrano czas, aby móc wykonać większą liczbę testów. Arbitralnie, na jeden test obrano limit czasu 300 sekund.
 \subsection{Błędy a typ jądra}
 \paragraph{}
-Testy przeprowadzono dla dwóch zbiorów danych: \textit{zawężonych} i \textit{pełnych}.
+Główne testy, pokazujące korelację liczby błędów do typu jądra, przeprowadzono dla dwóch zbiorów danych: \textit{zawężonych} i \textit{pełnych}.
 \paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów. Dane znajdują się w pliku: \textit{rs train7 short.csv}, a testujące w pliku \textit{rs test7 short.csv}. Dane te przedstawiono na poniższym wykresie:
 \pgfplotsset{width=6cm,compat=1.4}
 \begin{center}
@@ -201,12 +201,12 @@ Dla tego zestawu danych w wyniku uzyskano następujące wartości parametrów j�
     \hline
     Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} & \textbf{rbf} \\ \hline
     FSA & 4.7243, -8.6634 & 0, 0 & -7.6178, 7.9733 & - \\ \hline
-	Boltzmann & 8.4878, 9.9313 & 0, 0 & -8.4375, 7.9898 & 4.4031\\ \hline
+   Boltzmann & 8.4878, 9.9313 & 0, 0 & -8.4375, 7.9898 & 4.4031\\ \hline
     \end{tabular}
 \end{center}
 
-\paragraph {Dane pełne.} 
-Wyniki po trenowaniu na zbiorze \textit{rs train5 no headers} i testowaniu na zbiorze \textit{rs test5 no headers}.
+\paragraph {Dane pełne.}
+Wyniki po trenowaniu na zbiorze \textit{rs\_train5\_no\_headers} i testowaniu na zbiorze \textit{rs\_test5\_no\_headers}.
 \pgfplotsset{width=7cm,compat=1.4}
 \begin{center}
 \begin{tikzpicture}
@@ -222,30 +222,28 @@ nodes near coords,
 nodes near coords align={vertical}
 ]
 \addplot coordinates {(FSA,11) (Boltzmann,11)};
-\addplot coordinates {(FSA,34) (Boltzmann,34)};
 \addplot coordinates {(FSA,11) (Boltzmann,11)};
-\legend{polynomial\(^3\), tanh, polynomial\(^2\)}
+\addplot coordinates {(FSA,34) (Boltzmann,34)};
+\addplot coordinates {(FSA,21) (Boltzmann,22)};
+\legend{polynomial\(^3\), polynomial\(^2\), tanh, rbf}
 
 \end{axis}
 \end{tikzpicture}
 \end{center}
 
-\paragraph{}
-Wyniki po trenowaniu na zbiorze \textit{rs train7 no headers} i testowaniu na zbiorze \textit{rs test7 no headers}.
+W wyniku przeprowadzonych obliczeń otrzymano następujące parametry jąder.
 \begin{center}
     \begin{tabular}{ | c | c | c | c | c | }
     \hline
-    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} \\ \hline
-    FSA & 6.7973, 5.0605 & -3.4106, -3.4106 & 8.2822, -8.2822 \\ \hline
-	Boltzmann & 2.0868, -9.7798 & 5.5106, 8.3447 & 8.9050, -4.5498 \\ \hline
+    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} & \textbf{RBF} \\ \hline
+    FSA & -7.1650, 7.1500 & 4.0350 , 4.0350 & -9.1107, 9.1107 & 7.4593  \\ \hline
+   Boltzmann & 7.2506, 6.8868 & -9.990, 0.4460 & -9.7465, -2.2375 & -9\\ \hline
     \end{tabular}
 \end{center}
 
-
 \pgfplotsset{width=7cm,compat=1.4}
-
 \paragraph{}
-Wyniki po trenowaniu na zbiorze \textit{rs train7 no headers} i testowaniu na zbiorze \textit{rs test7 no headers}.
+Wyniki po trenowaniu na zbiorze \textit{rs\_train7\_no\_headers} i testowaniu na zbiorze \textit{rs\_test7\_no\_headers}.
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -259,10 +257,11 @@ xtick=data,
 nodes near coords,
 nodes near coords align={vertical}
 ]
-\addplot coordinates {(FSA,11) (Boltzmann,11)};
-\addplot coordinates {(FSA,34) (Boltzmann,34)};
-\addplot coordinates {(FSA,11) (Boltzmann,11)};
-\legend{polynomial\(^3\), tanh, polynomial\(^2\)}
+\addplot coordinates {(FSA,16) (Boltzmann,16)};
+\addplot coordinates {(FSA,15) (Boltzmann,15)};
+\addplot coordinates {(FSA,35) (Boltzmann,35)};
+\addplot coordinates {(FSA,22) (Boltzmann,22)};
+\legend{polynomial\(^3\), polynomial\(^2\), tanh, rbf}
 
 \end{axis}
 \end{tikzpicture}
@@ -273,9 +272,9 @@ Dla tego zestawu danych w wyniku uzyskano następujące wartości parametrów j�
 \begin{center}
     \begin{tabular}{ | c | c | c | c | c | }
     \hline
-    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} \\ \hline
-    FSA & 1.2699 1.2699 & 0, 0 & -3.9096 -9.7767 \\ \hline
-	Boltzmann & 3.4726 -9.3574 & 0, 0 & -1.0261 -4.8345 \\ \hline
+    Typ SA & \textbf{Polynomial}$^{3}$ & \textbf{Tanh} & \textbf{Polynomial$^{2}$} & \textbf{RBF} \\ \hline
+    FSA & 1.1749, -1.1749 & 0, 0 & -0.0633, -5.8195 & -9.8351 \\ \hline
+   Boltzmann & -9.7634, -2.1625 & 0, 0 & 2.3722, 9.7146 & 9.3501 \\ \hline
     \end{tabular}
 \end{center}
 
