@@ -24,29 +24,38 @@ function annealing(trn, tst, kernel_type, time, saopt)
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_polynomial(u, v, p(1), p(2), 2));
-        case 'rbf'
-            p0 = [1];
-            min_fun = @(p) svmsa(trn(:, 1:end - 1), trn(:, end), ...
-                tst(:, 1:end - 1), tst(:, end), 'rbf', p(1));
         case 'tanh'
             p0 = [0 0];
             min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
                 tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
                 @(u, v) kernel_tanh(u, v, p(1), p(2)));
+            
+        % --=> MATLAB KERNELS <=-- %
+            
+        case 'matlab_rbf'
+            p0 = [1];
+            min_fun = @(p) svmsa(trn(:, 1:end - 1), trn(:, end), ...
+                tst(:, 1:end - 1), tst(:, end), 'rbf', p(1));
+            
+        case 'matlab_poly3'
+            p0 = [2];
+            min_fun = @(p) svmsa(trn(:, 1:trn_c - 1), trn(:, trn_c), ...
+                tst(:, 1:tst_c - 1), tst(:, tst_c),  ...
+                'polynomial');
     end
     
 
-    [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, [-10 -10], [10 10], saopt);
+    %xbest = Inf;
+    %for i = 1:10
+        %p0 = rand(1,2) * 100
+        [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, p0, p0 + 30, saopt);
+    %    if xbest > x
+    %        xbest = x;
+    %    end
+    %end
     
     x
     fval
     output
-    output.temperature
-    
-    %hold on
-    %svm_classfier = svmtrain(trn(:, 1:(trn_c - 1)), trn(:, trn_c), ...
-    %    'kernel_function', @(u, v) kernel_polynomial(u, v, x(1), x(2), 3), ...
-    %    'autoscale', false, 'showplot', false);
-    %groups = svmclassify(svm_classfier, tst(:, 1:tst_c - 1), 'showplot', true)
-    
+
     
