@@ -165,11 +165,11 @@ Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry w
 \pagebreak
 \section{Testowanie i wnioski}
 \subsection{Kryterium stopu}
-Dla wykonanych testów, jako podstawowe kryterium stopu obrano czas, aby móc wykonać większą liczbę testów. Arbitralnie, na jeden test obrano limit czasu 300 sekund.
+Dla wykonanych testów symulowanego wyżarzania, jako kryterium stopu wubrano ilość przeprowadzonych iteracji. W przypdaku ogólnego porównania różnych typów jąder i wariantów SA (ang. simulated annealing) wybrano arbitralnie 25 iteracji. W przypadku bardziej szczegółowych badań nad jądrem RBF, ilość powtórzeń została ograniczona do 50.
 \subsection{Błędy a typ jądra}
 \paragraph{}
 Główne testy, pokazujące korelację liczby błędów do typu jądra, przeprowadzono dla dwóch zbiorów danych: \textit{zawężonych} i \textit{pełnych}.
-\paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów. Dane znajdują się w pliku: \textit{rs train7 short.csv}, a testujące w pliku \textit{rs test7 short.csv}. Dane te przedstawiono na poniższym wykresie:
+\paragraph {Dane zawężone} Dla zróżnicowania badania skuteczności zastosowanej metody, test przeprowadzono najpierw na \textit{danych zawężonych} tzn. klasyfikowano wektory o zredukowanej do 3 liczbie wymiarów. Dane znajdują się w pliku: \textit{rs train7 short.csv}, a testujące odpowiednio w \textit{rs test7 short.csv}. Wynik eksperymentu przedstawiono na poniższym wykresie:
 \pgfplotsset{width=6cm,compat=1.4}
 \begin{center}
 \begin{tikzpicture}
@@ -278,7 +278,9 @@ Dla tego zestawu danych w wyniku uzyskano następujące wartości parametrów j�
     \end{tabular}
 \end{center}
 
-\paragraph {Funkcje jąder wbudowane w środowisko MatLab.} Dla porównania jakości klasyfikacji przy użyciu jąder z zaproponowanymi przez autora funkcjami przekształceń, zastosowano jądra dostępne w środowisku MatLab. Ilość błędów klasafikacji zaprezentowano na poniższym wykresie.
+\paragraph {Funkcje jąder wbudowane w środowisko MATLAB} 
+Na poniższym wykresie zaprezentowano porównanie jakości jąder/parametrów dobranych metodą symulowanego wyżarzania z domyślnymi wartościami MATLAB. Wykorzystano zestaw danych \textit{rs\_train7\_no\_headers.txt} i \textit{rs\_test7\_no\_headers.txt}
+
 \pgfplotsset{width=6cm,compat=1.4}
 \begin{center}
 \begin{tikzpicture}
@@ -303,7 +305,7 @@ nodes near coords align={vertical}
 \end{tikzpicture}
 \end{center}
 
-Zgodnie ze spodziewaniami, wyniki są gorsze od wyników przy zastosowaniu zaproponowanych funkcji.
+Zgodnie ze oczekiwaniami, wartości domyślne nie zapowniają dobrej klasyfikacji danych. Celem poprawy, konieczne jest dobranie innych parametrów.
 
 <<<<<<< HEAD
 \subsection{Jakość doboru parametrów a ilość iteracji}
@@ -337,7 +339,7 @@ x tick label style={rotate=90, anchor=east},
 \paragraph{}
 Poniższe wykresy prezentują ilość błędów w zależności od dobranych parametrów przy użyciu metody pełnego  przeglądu. Do tego testu użyto jądra przekształcenia RBF. Dla porównania dla tych samych danych pokazano rezultaty symulowanego wyżarzania, o warunku zakończenia 50 iteracji.
 
-\pgfplotsset{width=13cm, compat=1.4}
+\pgfplotsset{width=10cm, compat=1.4}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis} [
@@ -382,7 +384,136 @@ coordinates
 \addlegendentry{metoda pe\l{}nego przegl\k{a}du, 53 minuty}
 \addplot+[red,const plot mark mid]
 coordinates{
-(10, 22)
+(9.9367, 22)
+};
+\addlegendentry{symulowane wy\.zarzanie, 25 minut}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\pgfplotsset{width=10cm, compat=1.4}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis} [
+ylabel={liczba b\l{}\k{e}d\'ow},
+xlabel={Temperatura},
+title = {Wynik SA dla rs\_train7\_no\_headers.txt i rs\_test7\_no\_headers.txt},
+x dir = reverse
+]
+\addplot+[sharp plot]
+coordinates
+{
+(100, 32) (50, 25) (3.333333e+001, 25) (25, 24) (20, 24) (1.666667e+001, 24) (1.428571e+001, 22)(1.250000e+001, 26) (1.111111e+001, 24) (10, 23)(9.090909e+000, 23) (8.333333e+000, 23) (7.692308e+000, 24) (7.142857e+000, 24) (6.666667e+000, 26) (6.250000e+000, 24) (5.882353e+000, 24) (5.555556e+000, 24) (5.263158e+000, 24) (5, 24) (4.761905e+000, 24) (4.545455e+000, 24) (4.347826e+000, 24) (4.166667e+000, 24) (4, 25) (3.846154e+000, 24) (3.703704e+000, 24) (3.571429e+000, 24) (3.448276e+000, 24) (3.333333e+000, 24) (3.225806e+000, 24) (3.125000e+000, 24) (3.030303e+000, 24) (2.941176e+000, 24) (2.857143e+000, 24) (2.777778e+000, 24) (2.702703e+000, 24) (2.631579e+000, 24) (2.564103e+000, 24) (2.500000e+000, 24) (2.439024e+000, 24) (2.380952e+000, 24) (2.325581e+000, 24) (2.272727e+000, 24) (2.222222e+000, 24) (2.173913e+000, 24) (2.127660e+000, 24) (2.083333e+000, 24) (2.040816e+000, 24) (2, 24) (1.960784e+000, 24) (1.923077e+000, 24) (1.923077e+000, 24)
+};
+\addlegendentry{symulowane wy\.zarzanie, 25 minut}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\pgfplotsset{width=10cm, compat=1.4}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis} [
+ylabel={Rozwiązanie},
+xlabel={Temperatura},
+title = {Przebieg SA dla rs\_train7\_no\_headers.txt i rs\_test7\_no\_headers.txt},
+x dir = reverse
+]
+\addplot+[sharp plot]
+coordinates
+{
+(100.0000,1.0000)
+(50.0000,21.9966)
+(33.3333,22.2992)
+(25.0000,10.9922)
+(20.0000,10.9922)
+(16.6667,10.9922)
+(14.2857, 9.9367)
+(12.5000,24.2224)
+(11.1111,11.7225)
+(10.0000, 8.7094)
+(9.0909, 8.7094)
+(8.3333, 8.7094)
+(7.6923,17.0427)
+(7.1429,17.0427)
+(6.6667,24.1856)
+(6.2500,17.5189)
+(5.8824,17.5189)
+(5.5556,17.5189)
+(5.2632,11.9634)
+(5.0000,11.9634)
+(4.7619,11.9634)
+(4.5455, 7.2015)
+(4.3478,11.7469)
+(4.1667,11.7469)
+(4.0000, 7.5802)
+(3.8462,11.5802)
+(3.7037,15.4264)
+(3.5714,15.4264)
+(3.4483,15.4264)
+(3.3333,15.4264)
+(3.2258,15.4264)
+(3.1250,15.4264)
+(3.0303,15.4264)
+(2.9412,15.4264)
+(2.8571,15.4264)
+(2.7778,15.4264)
+(2.7027,18.2042)
+(2.6316,18.2042)
+(2.5641,18.2042)
+(2.5000,18.2042)
+(2.4390,18.2042)
+(2.3810,15.7652)
+(2.3256,13.3842)
+(2.2727,13.3842)
+(2.2222,13.3842)
+(2.1739,13.3842)
+(2.1277,13.3842)
+(2.0833,15.5119)
+(2.0408,15.5119)
+(2.0000,15.5119)
+(1.9608,15.5119)
+(1.9231,15.5119)
+(1.9231,15.5119)
+};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+
+
+\pgfplotsset{width=10cm, compat=1.4}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis} [
+ylabel={liczba b\l{}\k{e}d\'ow},
+xlabel={warto\'s\'c parametru przekszta\l{}cenia},
+title = {Wynik fullsearch dla rs\_train5\_no\_headers.txt i rs\_test5\_no\_headers.txt}
+]
+\addplot+[const plot mark mid]
+coordinates
+{(1,31) (1.2,31)  (1.6, 30) (1.8, 29)
+(2, 28) (2.2, 27) (2.8, 26)
+(3.4, 26) (3.6, 25) (3.8, 25)
+(4, 24) (4.2, 22) 
+(5.2, 22) (5.4, 21) (5.6, 21)
+(6, 23) (6.8, 22)
+(7, 21) (7.8, 24)
+(8.8, 21)
+(9, 22) (9.4, 22) (9.8, 22)
+(16, 23)
+(18, 23)
+(19, 22)
+(24, 22) (24.2, 23)
+(24.6, 22)
+(26.4, 23)
+(30, 23)
+};
+\addlegendentry{metoda pe\l{}nego przegl\k{a}du, 95 minut}
+\addplot+[red,const plot mark mid]
+coordinates{
+(23.7439, 22)
 };
 \addlegendentry{symulowane wy\.zarzanie, 19 minut}
 \end{axis}
@@ -390,7 +521,7 @@ coordinates{
 \end{center}
 
 
-\pgfplotsset{width=13cm, compat=1.4}
+\pgfplotsset{width=10cm, compat=1.4}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis} [
@@ -455,49 +586,78 @@ coordinates
 (1.960784e+000, 22 )
 (1.923077e+000, 22 )
 (1.923077e+000, 22 )
-
 };
 \addlegendentry{symulowane wy\.zarzanie, 19 minut}
 \end{axis}
 \end{tikzpicture}
 \end{center}
 
-
-
-
-\pgfplotsset{width=13cm, compat=1.4}
+\pgfplotsset{width=10cm, compat=1.4}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis} [
-ylabel={liczba b\l{}\k{e}d\'ow},
-xlabel={warto\'s\'c parametru przekszta\l{}cenia},
-title = {Wynik fullsearch dla rs\_train5\_no\_headers.txt i rs\_test5\_no\_headers.txt}
+ylabel={Rozwiązanie},
+xlabel={Temperatura},
+title = {Przebieg SA dla rs\_train5\_no\_headers.txt i rs\_test5\_no\_headers.txt},
+x dir = reverse
 ]
-\addplot+[const plot mark mid]
+\addplot+[sharp plot]
 coordinates
-{(1,31) (1.2,31)  (1.6, 30) (1.8, 29)
-(2, 28) (2.2, 27) (2.8, 26)
-(3.4, 26) (3.6, 25) (3.8, 25)
-(4, 24) (4.2, 22) 
-(5.2, 22) (5.4, 21) (5.6, 21)
-(6, 23) (6.8, 22)
-(7, 21) (7.8, 24)
-(8.8, 21)
-(9, 22) (9.4, 22) (9.8, 22)
-(16, 23)
-(18, 23)
-(19, 22)
-(24, 22) (24.2, 23)
-(24.6, 22)
-(26.4, 23)
-(30, 23)
+{
+(100.0000,1.0000)
+(50.0000,2.1322)
+(33.3333,28.4968)
+(25.0000,28.7439)
+(20.0000,3.7439)
+(16.6667,23.7439)
+(14.2857,23.7439)
+(12.5000,30.2085)
+(11.1111,30.3651)
+(10.0000,30.6826)
+(9.0909,30.6826)
+(8.3333,30.6826)
+(7.6923,22.3492)
+(7.1429,22.3492)
+(6.6667,22.3492)
+(6.2500,29.0159)
+(5.8824,29.1001)
+(5.5556,29.1001)
+(5.2632,30.4727)
+(5.0000,30.4727)
+(4.7619,30.8947)
+(4.5455,26.1328)
+(4.3478,21.5874)
+(4.1667,21.5874)
+(4.0000,21.5874)
+(3.8462,21.5874)
+(3.7037,17.7412)
+(3.5714,21.4449)
+(3.4483,17.8735)
+(3.3333,14.4252)
+(3.2258,17.7585)
+(3.1250,20.9843)
+(3.0303,20.9843)
+(2.9412,17.9540)
+(2.8571,20.8952)
+(2.7778,20.8952)
+(2.7027,20.8952)
+(2.6316,20.8952)
+(2.5641,23.5268)
+(2.5000,23.5268)
+(2.4390,23.5268)
+(2.3810,21.0878)
+(2.3256,21.0878)
+(2.2727,21.0878)
+(2.2222,21.0878)
+(2.1739,21.0878)
+(2.1277,21.0878)
+(2.0833,21.0878)
+(2.0408,21.0878)
+(2.0000,19.0469)
+(1.9608,19.0469)
+(1.9231,19.0469)
+(1.9231,19.0469)
 };
-\addlegendentry{metoda pe\l{}nego przegl\k{a}du, 95 minut}
-\addplot+[red,const plot mark mid]
-coordinates{
-(10, 22)
-};
-\addlegendentry{symulowane wy\.zarzanie, 13 minut}
 \end{axis}
 \end{tikzpicture}
 \end{center}
