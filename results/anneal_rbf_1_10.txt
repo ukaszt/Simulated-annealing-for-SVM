@@ -1,0 +1,47 @@
+test,train5     
+
+   [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, p0, p0 + 50, saopt);
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperatureexp
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 50
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+    8.6792
+
+
+fval =
+
+    21
+
+
+output = 
+
+     iterations: 51
+      funccount: 52
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: 6.9443
+      totaltime: 787.3214

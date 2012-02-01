@@ -1,0 +1,15 @@
+Elapsed time is 19506.749181 seconds.
+
+min =
+
+    11
+
+
+minp1 =
+
+   -10
+
+
+minp2 =
+
+   -10

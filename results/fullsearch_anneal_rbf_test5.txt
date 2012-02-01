@@ -1,0 +1,224 @@
+test train 5
+
+Full search with RBF kernel
+
+params =
+
+     1
+
+
+lb =
+
+     1
+
+
+up =
+
+    30
+
+Param = 1, Err = 31 
+Param = 1.200000e+000, Err = 31 
+Param = 1.400000e+000, Err = 30 
+Param = 1.600000e+000, Err = 30 
+Param = 1.800000e+000, Err = 29 
+Param = 2, Err = 28 
+Param = 2.200000e+000, Err = 27 
+Param = 2.400000e+000, Err = 27 
+Param = 2.600000e+000, Err = 27 
+Param = 2.800000e+000, Err = 26 
+Param = 3, Err = 26 
+Param = 3.200000e+000, Err = 26 
+Param = 3.400000e+000, Err = 26 
+Param = 3.600000e+000, Err = 25 
+Param = 3.800000e+000, Err = 25 
+Param = 4, Err = 24 
+Param = 4.200000e+000, Err = 22 
+Param = 4.400000e+000, Err = 22 
+Param = 4.600000e+000, Err = 22 
+Param = 4.800000e+000, Err = 22 
+Param = 5, Err = 22 
+Param = 5.200000e+000, Err = 22 
+Param = 5.400000e+000, Err = 21 
+Param = 5.600000e+000, Err = 21 
+Param = 5.800000e+000, Err = 23 
+Param = 6, Err = 23 
+Param = 6.200000e+000, Err = 23 
+Param = 6.400000e+000, Err = 23 
+Param = 6.600000e+000, Err = 23 
+Param = 6.800000e+000, Err = 22 
+Param = 7, Err = 21 
+Param = 7.200000e+000, Err = 21 
+Param = 7.400000e+000, Err = 21 
+Param = 7.600000e+000, Err = 21 
+Param = 7.800000e+000, Err = 21 
+Param = 8, Err = 21 
+Param = 8.200000e+000, Err = 21 
+Param = 8.400000e+000, Err = 21 
+Param = 8.600000e+000, Err = 21 
+Param = 8.800000e+000, Err = 21 
+Param = 9, Err = 22 
+Param = 9.200000e+000, Err = 22 
+Param = 9.400000e+000, Err = 22 
+Param = 9.600000e+000, Err = 22 
+Param = 9.800000e+000, Err = 22 
+Param = 10, Err = 22 
+Param = 1.020000e+001, Err = 22 
+Param = 1.040000e+001, Err = 22 
+Param = 1.060000e+001, Err = 22 
+Param = 1.080000e+001, Err = 22 
+Param = 11, Err = 22 
+Param = 1.120000e+001, Err = 22 
+Param = 1.140000e+001, Err = 22 
+Param = 1.160000e+001, Err = 22 
+Param = 1.180000e+001, Err = 22 
+Param = 12, Err = 22 
+Param = 1.220000e+001, Err = 22 
+Param = 1.240000e+001, Err = 22 
+Param = 1.260000e+001, Err = 22 
+Param = 1.280000e+001, Err = 22 
+Param = 13, Err = 22 
+Param = 1.320000e+001, Err = 22 
+Param = 1.340000e+001, Err = 22 
+Param = 1.360000e+001, Err = 22 
+Param = 1.380000e+001, Err = 22 
+Param = 14, Err = 22 
+Param = 1.420000e+001, Err = 22 
+Param = 1.440000e+001, Err = 22 
+Param = 1.460000e+001, Err = 22 
+Param = 1.480000e+001, Err = 22 
+Param = 15, Err = 22 
+Param = 1.520000e+001, Err = 22 
+Param = 1.540000e+001, Err = 22 
+Param = 1.560000e+001, Err = 22 
+Param = 1.580000e+001, Err = 22 
+Param = 16, Err = 23 
+Param = 1.620000e+001, Err = 23 
+Param = 1.640000e+001, Err = 23 
+Param = 1.660000e+001, Err = 23 
+Param = 1.680000e+001, Err = 23 
+Param = 17, Err = 23 
+Param = 1.720000e+001, Err = 23 
+Param = 1.740000e+001, Err = 23 
+Param = 1.760000e+001, Err = 23 
+Param = 1.780000e+001, Err = 23 
+Param = 18, Err = 23 
+Param = 1.820000e+001, Err = 23 
+Param = 1.840000e+001, Err = 23 
+Param = 1.860000e+001, Err = 23 
+Param = 1.880000e+001, Err = 23 
+Param = 19, Err = 22 
+Param = 1.920000e+001, Err = 22 
+Param = 1.940000e+001, Err = 22 
+Param = 1.960000e+001, Err = 22 
+Param = 1.980000e+001, Err = 22 
+Param = 20, Err = 22 
+Param = 2.020000e+001, Err = 22 
+Param = 2.040000e+001, Err = 22 
+Param = 2.060000e+001, Err = 22 
+Param = 2.080000e+001, Err = 22 
+Param = 21, Err = 22 
+Param = 2.120000e+001, Err = 22 
+Param = 2.140000e+001, Err = 22 
+Param = 2.160000e+001, Err = 22 
+Param = 2.180000e+001, Err = 22 
+Param = 22, Err = 22 
+Param = 2.220000e+001, Err = 22 
+Param = 2.240000e+001, Err = 22 
+Param = 2.260000e+001, Err = 22 
+Param = 2.280000e+001, Err = 22 
+Param = 23, Err = 22 
+Param = 2.320000e+001, Err = 22 
+Param = 2.340000e+001, Err = 22 
+Param = 2.360000e+001, Err = 22 
+Param = 2.380000e+001, Err = 22 
+Param = 24, Err = 22 
+Param = 2.420000e+001, Err = 23 
+Param = 2.440000e+001, Err = 22 
+Param = 2.460000e+001, Err = 22 
+Param = 2.480000e+001, Err = 22 
+Param = 25, Err = 22 
+Param = 2.520000e+001, Err = 22 
+Param = 2.540000e+001, Err = 22 
+Param = 2.560000e+001, Err = 22 
+Param = 2.580000e+001, Err = 22 
+Param = 26, Err = 22 
+Param = 2.620000e+001, Err = 22 
+Param = 2.640000e+001, Err = 23 
+Param = 2.660000e+001, Err = 23 
+Param = 2.680000e+001, Err = 23 
+Param = 27, Err = 23 
+Param = 2.720000e+001, Err = 23 
+Param = 2.740000e+001, Err = 23 
+Param = 2.760000e+001, Err = 23 
+Param = 2.780000e+001, Err = 23 
+Param = 28, Err = 23 
+Param = 2.820000e+001, Err = 23 
+Param = 2.840000e+001, Err = 23 
+Param = 2.860000e+001, Err = 23 
+Param = 2.880000e+001, Err = 23 
+Param = 29, Err = 23 
+Param = 2.920000e+001, Err = 23 
+Param = 2.940000e+001, Err = 23 
+Param = 2.960000e+001, Err = 23 
+Param = 2.980000e+001, Err = 23 
+Param = 30, Err = 23 
+Elapsed time is 2964.323966 seconds.
+
+min =
+
+    21
+
+
+minp1 =
+
+    5.4000
+
+
+minp2 =
+
+     0
+
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperatureexp
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 50
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+   20.6059
+
+
+fval =
+
+    22
+
+
+output = 
+
+     iterations: 51
+      funccount: 52
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: 6.9443
+      totaltime: 1.0935e+003
