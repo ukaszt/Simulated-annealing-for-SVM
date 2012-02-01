@@ -1,0 +1,198 @@
+!!!!!!!!!!!!!!!!! ANNEALING FAST !!!!!!!!!!!!!!
+!!!!! !!!!! TRAIN 5 FAST MAX ITER 50 RBF
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 50
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: @annealdisplay
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Current point i = 1 value = 31 temperature = 100 
+Current point i = 2.132166e+000 value = 28 temperature = 50 
+Current point i = 2.849678e+001 value = 23 temperature = 3.333333e+001 
+Current point i = 2.874388e+001 value = 23 temperature = 25 
+Current point i = 3.743877e+000 value = 25 temperature = 20 
+Current point i = 2.374388e+001 value = 22 temperature = 1.666667e+001 
+Current point i = 2.374388e+001 value = 22 temperature = 1.428571e+001 
+Current point i = 3.020852e+001 value = 23 temperature = 1.250000e+001 
+Current point i = 3.036508e+001 value = 23 temperature = 1.111111e+001 
+Current point i = 3.068256e+001 value = 23 temperature = 10 
+Current point i = 3.068256e+001 value = 23 temperature = 9.090909e+000 
+Current point i = 3.068256e+001 value = 23 temperature = 8.333333e+000 
+Current point i = 2.234922e+001 value = 22 temperature = 7.692308e+000 
+Current point i = 2.234922e+001 value = 22 temperature = 7.142857e+000 
+Current point i = 2.234922e+001 value = 22 temperature = 6.666667e+000 
+Current point i = 2.901589e+001 value = 23 temperature = 6.250000e+000 
+Current point i = 2.910008e+001 value = 23 temperature = 5.882353e+000 
+Current point i = 2.910008e+001 value = 23 temperature = 5.555556e+000 
+Current point i = 3.047266e+001 value = 23 temperature = 5.263158e+000 
+Current point i = 3.047266e+001 value = 23 temperature = 5 
+Current point i = 3.089471e+001 value = 23 temperature = 4.761905e+000 
+Current point i = 2.613280e+001 value = 22 temperature = 4.545455e+000 
+Current point i = 2.158735e+001 value = 22 temperature = 4.347826e+000 
+Current point i = 2.158735e+001 value = 22 temperature = 4.166667e+000 
+Current point i = 2.158735e+001 value = 22 temperature = 4 
+Current point i = 2.158735e+001 value = 22 temperature = 3.846154e+000 
+Current point i = 1.774119e+001 value = 23 temperature = 3.703704e+000 
+Current point i = 2.144490e+001 value = 22 temperature = 3.571429e+000 
+Current point i = 1.787347e+001 value = 23 temperature = 3.448276e+000 
+Current point i = 1.442519e+001 value = 22 temperature = 3.333333e+000 
+Current point i = 1.775853e+001 value = 23 temperature = 3.225806e+000 
+Current point i = 2.098433e+001 value = 22 temperature = 3.125000e+000 
+Current point i = 2.098433e+001 value = 22 temperature = 3.030303e+000 
+Current point i = 1.795403e+001 value = 23 temperature = 2.941176e+000 
+Current point i = 2.089520e+001 value = 22 temperature = 2.857143e+000 
+Current point i = 2.089520e+001 value = 22 temperature = 2.777778e+000 
+Current point i = 2.089520e+001 value = 22 temperature = 2.702703e+000 
+Current point i = 2.089520e+001 value = 22 temperature = 2.631579e+000 
+Current point i = 2.352678e+001 value = 22 temperature = 2.564103e+000 
+Current point i = 2.352678e+001 value = 22 temperature = 2.500000e+000 
+Current point i = 2.352678e+001 value = 22 temperature = 2.439024e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.380952e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.325581e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.272727e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.222222e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.173913e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.127660e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.083333e+000 
+Current point i = 2.108776e+001 value = 22 temperature = 2.040816e+000 
+Current point i = 1.904694e+001 value = 22 temperature = 2 
+Current point i = 1.904694e+001 value = 22 temperature = 1.960784e+000 
+Current point i = 1.904694e+001 value = 22 temperature = 1.923077e+000 
+Current point i = 1.904694e+001 value = 22 temperature = 1.923077e+000 
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+   23.7439
+
+
+fval =
+
+    22
+
+
+output = 
+
+     iterations: 51
+      funccount: 52
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: 1.9231
+      totaltime: 973.2746
+
+!!!!! !!!!! TRAIN 7 FAST MAX ITER 50 RBF
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 50
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: @annealdisplay
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Current point i = 1 value = 32 temperature = 100 
+Current point i = 2.199664e+001 value = 25 temperature = 50 
+Current point i = 2.229918e+001 value = 25 temperature = 3.333333e+001 
+Current point i = 1.099221e+001 value = 24 temperature = 25 
+Current point i = 1.099221e+001 value = 24 temperature = 20 
+Current point i = 1.099221e+001 value = 24 temperature = 1.666667e+001 
+Current point i = 9.936739e+000 value = 22 temperature = 1.428571e+001 
+Current point i = 2.422245e+001 value = 26 temperature = 1.250000e+001 
+Current point i = 1.172245e+001 value = 24 temperature = 1.111111e+001 
+Current point i = 8.709387e+000 value = 23 temperature = 10 
+Current point i = 8.709387e+000 value = 23 temperature = 9.090909e+000 
+Current point i = 8.709387e+000 value = 23 temperature = 8.333333e+000 
+Current point i = 1.704272e+001 value = 24 temperature = 7.692308e+000 
+Current point i = 1.704272e+001 value = 24 temperature = 7.142857e+000 
+Current point i = 2.418558e+001 value = 26 temperature = 6.666667e+000 
+Current point i = 1.751891e+001 value = 24 temperature = 6.250000e+000 
+Current point i = 1.751891e+001 value = 24 temperature = 5.882353e+000 
+Current point i = 1.751891e+001 value = 24 temperature = 5.555556e+000 
+Current point i = 1.196336e+001 value = 24 temperature = 5.263158e+000 
+Current point i = 1.196336e+001 value = 24 temperature = 5 
+Current point i = 1.196336e+001 value = 24 temperature = 4.761905e+000 
+Current point i = 7.201450e+000 value = 25 temperature = 4.545455e+000 
+Current point i = 1.174690e+001 value = 24 temperature = 4.347826e+000 
+Current point i = 1.174690e+001 value = 24 temperature = 4.166667e+000 
+Current point i = 7.580238e+000 value = 25 temperature = 4 
+Current point i = 1.158024e+001 value = 24 temperature = 3.846154e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.703704e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.571429e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.448276e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.333333e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.225806e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.125000e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 3.030303e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 2.941176e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 2.857143e+000 
+Current point i = 1.542639e+001 value = 24 temperature = 2.777778e+000 
+Current point i = 1.820417e+001 value = 24 temperature = 2.702703e+000 
+Current point i = 1.820417e+001 value = 24 temperature = 2.631579e+000 
+Current point i = 1.820417e+001 value = 24 temperature = 2.564103e+000 
+Current point i = 1.820417e+001 value = 24 temperature = 2.500000e+000 
+Current point i = 1.820417e+001 value = 24 temperature = 2.439024e+000 
+Current point i = 1.576515e+001 value = 24 temperature = 2.380952e+000 
+Current point i = 1.338419e+001 value = 24 temperature = 2.325581e+000 
+Current point i = 1.338419e+001 value = 24 temperature = 2.272727e+000 
+Current point i = 1.338419e+001 value = 24 temperature = 2.222222e+000 
+Current point i = 1.338419e+001 value = 24 temperature = 2.173913e+000 
+Current point i = 1.338419e+001 value = 24 temperature = 2.127660e+000 
+Current point i = 1.551185e+001 value = 24 temperature = 2.083333e+000 
+Current point i = 1.551185e+001 value = 24 temperature = 2.040816e+000 
+Current point i = 1.551185e+001 value = 24 temperature = 2 
+Current point i = 1.551185e+001 value = 24 temperature = 1.960784e+000 
+Current point i = 1.551185e+001 value = 24 temperature = 1.923077e+000 
+Current point i = 1.551185e+001 value = 24 temperature = 1.923077e+000 
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+    9.9367
+
+
+fval =
+
+    22
+
+
+output = 
+
+     iterations: 51
+      funccount: 52
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: 1.9231
+      totaltime: 1.5531e+003

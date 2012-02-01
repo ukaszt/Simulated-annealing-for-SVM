@@ -1,0 +1,231 @@
+-25 +25
+
+==== FSA, POLY3, ITERS 1
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 1
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+    3.1747    3.1747
+
+
+fval =
+
+    11
+
+
+output = 
+
+     iterations: 2
+      funccount: 3
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: [2x1 double]
+      totaltime: 34.3202
+
+==== FSA, POLY3, ITERS 5
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 5
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+    9.1966   24.1222
+
+
+fval =
+
+    11
+
+
+output = 
+
+     iterations: 6
+      funccount: 7
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: [2x1 double]
+      totaltime: 75.5669
+
+==== FSA, POLY3, ITERS 10
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 10
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+    6.9231   -6.9231
+
+
+fval =
+
+    11
+
+
+output = 
+
+     iterations: 11
+      funccount: 12
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: [2x1 double]
+      totaltime: 135.7365
+
+==== FSA, POLY3, ITERS 20
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 20
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+   17.2201  -23.6136
+
+
+fval =
+
+    11
+
+
+output = 
+
+     iterations: 21
+      funccount: 22
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: [2x1 double]
+      totaltime: 235.5459
+
+==== FSA, POLY3, ITERS 50
+
+saopt = 
+
+          AnnealingFcn: @annealingfast
+        TemperatureFcn: @temperaturefast
+         AcceptanceFcn: @acceptancesa
+                TolFun: 1.0000e-006
+        StallIterLimit: '500*numberofvariables'
+           MaxFunEvals: '3000*numberofvariables'
+             TimeLimit: Inf
+               MaxIter: 50
+        ObjectiveLimit: -Inf
+               Display: 'final'
+       DisplayInterval: 10
+             HybridFcn: []
+        HybridInterval: 'end'
+              PlotFcns: []
+          PlotInterval: 1
+            OutputFcns: []
+    InitialTemperature: 100
+      ReannealInterval: 100
+              DataType: 'double'
+
+Maximum number of iterations exceeded: increase options.MaxIter.
+
+x =
+
+   12.2313   -1.8827
+
+
+fval =
+
+    11
+
+
+output = 
+
+     iterations: 51
+      funccount: 52
+        message: 'Maximum number of iterations exceeded: increase options.MaxIter.'
+       rngstate: [1x1 struct]
+    problemtype: 'boundconstraints'
+    temperature: [2x1 double]
+      totaltime: 684.0332
