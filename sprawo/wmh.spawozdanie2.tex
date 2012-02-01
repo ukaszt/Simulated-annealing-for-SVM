@@ -335,13 +335,15 @@ x tick label style={rotate=90, anchor=east},
 
 \subsection{Symulowane wyżarzanie a metoda pełnego przeglądu}
 \paragraph{}
-Poniższe wykresy prezentują ilość błędów w zależności od dobranych parametrów przy użyciu metody pełnego  przeglądu. Pierwszy wykres na danych trenujących i testowych ze zbioru \textit{7 no headers}, a następny dla danych ze bioru \textit{5 no headers}. Do tego testu użyto jądra przekształcenia RBF. \pagebreak Dla porównania na tych samych wykresach dla dych samych danych pokazano rezultaty dla symulowanego wyżarzania, o warunku zakończenia 50 iteracji.
+Poniższe wykresy prezentują ilość błędów w zależności od dobranych parametrów przy użyciu metody pełnego  przeglądu. Do tego testu użyto jądra przekształcenia RBF. Dla porównania dla tych samych danych pokazano rezultaty symulowanego wyżarzania, o warunku zakończenia 50 iteracji.
+
 \pgfplotsset{width=13cm, compat=1.4}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis} [
 ylabel={liczba b\l{}\k{e}d\'ow},
 xlabel={warto\'s\'c parametru przekszta\l{}cenia},
+title = {Wynik fullsearch dla rs\_train7\_no\_headers.txt i rs\_test7\_no\_headers.txt}
 ]
 \addplot+[const plot mark mid]
 coordinates
@@ -387,12 +389,89 @@ coordinates{
 \end{tikzpicture}
 \end{center}
 
+
+\pgfplotsset{width=13cm, compat=1.4}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis} [
+ylabel={liczba b\l{}\k{e}d\'ow},
+xlabel={Temperatura},
+title = {Wynik SA dla rs\_train5\_no\_headers.txt i rs\_test5\_no\_headers.txt},
+x dir = reverse
+]
+\addplot+[sharp plot]
+coordinates
+{
+(100, 31)
+(50, 28 )
+(3.333333e+001, 23 )
+(25, 23 )
+(20, 25 )
+(1.666667e+001, 22 )
+(1.428571e+001, 22 )
+(1.250000e+001, 23 )
+(1.111111e+001, 23 )
+(10, 23 )
+(9.090909e+000, 23 )
+(8.333333e+000, 23 )
+(7.692308e+000, 23 )
+(7.142857e+000, 22 )
+(6.666667e+000, 22 )
+(6.250000e+000, 23 )
+(5.882353e+000, 23 )
+(5.555556e+000, 23 )
+(5.263158e+000, 23 )
+(5, 23 )
+(4.761905e+000, 23 )
+(4.545455e+000, 23 )
+(4.347826e+000, 23 )
+(4.166667e+000, 22 )
+(4, 22 )
+(3.846154e+000, 22 )
+(3.703704e+000, 23 )
+(3.571429e+000, 22 )
+(3.448276e+000, 23 )
+(3.333333e+000, 22 )
+(3.225806e+000, 23 )
+(3.125000e+000, 22 )
+(3.030303e+000, 22 )
+(2.941176e+000, 23 )
+(2.857143e+000, 22 )
+(2.777778e+000, 22 )
+(2.702703e+000, 22 )
+(2.631579e+000, 22 )
+(2.564103e+000, 22 )
+(2.500000e+000, 22 )
+(2.439024e+000, 22 )
+(2.380952e+000, 22 )
+(2.325581e+000, 22 )
+(2.272727e+000, 22 )
+(2.222222e+000, 22 )
+(2.173913e+000, 22 )
+(2.127660e+000, 22 )
+(2.083333e+000, 22 )
+(2.040816e+000, 22 )
+(2, 22 )
+(1.960784e+000, 22 )
+(1.923077e+000, 22 )
+(1.923077e+000, 22 )
+
+};
+\addlegendentry{symulowane wy\.zarzanie, 19 minut}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+
+
+
 \pgfplotsset{width=13cm, compat=1.4}
 \begin{center}
 \begin{tikzpicture}
 \begin{axis} [
 ylabel={liczba b\l{}\k{e}d\'ow},
 xlabel={warto\'s\'c parametru przekszta\l{}cenia},
+title = {Wynik fullsearch dla rs\_train5\_no\_headers.txt i rs\_test5\_no\_headers.txt}
 ]
 \addplot+[const plot mark mid]
 coordinates
