@@ -75,7 +75,6 @@ end
 % wyres bledow od iteracji
 % wykres bledow iteracji
 if strcmpi(cmethod, 'annealing')
-    saopt
     annealing(trn, tst, kfun, 60, saopt);
 else
     fullsearch(trn, tst, kfun);

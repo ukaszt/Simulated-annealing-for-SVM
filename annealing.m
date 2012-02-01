@@ -48,6 +48,8 @@ function annealing(trn, tst, kernel_type, time, saopt)
     %xbest = Inf;
     %for i = 1:10
         %p0 = rand(1,2) * 100
+         saopt = saoptimset(saopt, 'OutputFcns',@annealdisplay);
+         saopt
         [x,fval,exitflag,output] = simulannealbnd(min_fun, p0, p0, p0 + 30, saopt);
     %    if xbest > x
     %        xbest = x;
