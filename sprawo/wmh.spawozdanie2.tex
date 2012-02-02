@@ -114,18 +114,18 @@ Przy przekstrzałceniu danych treningowych na punkty w przestrzeni, która póź
 \end{enumerate}
 Testy zostaną przeprowadzone dla jąder: wielomianowego, tangensa hiperbolicznego oraz rbf. W wynikach zwizualizowane zostaną te dane, które są najciekawsze pod kątem prezentacji różnorodności rozwiązania przedstawionego problemu.
 \subsubsection{Wieloklasowy SVM}
-Podział danych na dwie klasy jest często nie wystarczający. Aby rozszerzyć możliwości SVM o kategoryzację do kilku klas, wykorzystuje się kilka, niezależnie trenowanych binarnych SVM i definiuje strategię przydziału nowego wektora do jednej z istniejących klas. Jedną z takich strategii jest ,,one-versus-all''. Metoda polega na utworzeniu, w przypadku M klas, M binarnych maszyn SVM w których podział następuje między jedną z dostępnych klas a pozostałymi ( M - 1) klasami. Przydział testowego wektora do klasy odbywa się na zasadzie winner-takes-all.
+Podział danych na dwie klasy jest często niewystarczający. Aby rozszerzyć możliwości SVM o kategoryzację do kilku klas, wykorzystuje się kilka, niezależnie trenowanych binarnych SVM i definiuje strategię przydziału nowego wektora do jednej z istniejących klas. Jedną z takich strategii jest ,,one-versus-all''. Metoda polega na utworzeniu, w przypadku M klas, M binarnych maszyn SVM w których podział następuje między jedną z dostępnych klas a pozostałymi ( M - 1) klasami. Przydział testowego wektora do klasy odbywa się na zasadzie winner-takes-all.
 Inne możliwe metody budowy wieloklasowego SVM to ,,one-against-one'' lub ,,DAGSVM''.
  
 \pagebreak
 \section{Założenie projektowe}
 Cele postawione przed niniejszym projektem:
 \begin{enumerate}
-\item Porównanie wyników dla dwóch rodzajów jąder przekształcenia klasyfikacyjnego algorytmu SVM - zadane jako parametr wejściowy
+\item Porównanie wyników dla kilku jąder przekształcenia klasyfikacyjnego algorytmu SVM - zadane jako parametr wejściowy
 \item Wykorzystanie metody symulowanego wyżarzania w dwóch wariantach: Bolztmanna oraz FSA - zadane jako parametr wejściowy
 \item Implementacja rozwiązania oraz przeprowadzenie i wizualizacja wyników testowania w środowisku MATLAB
 \item Na wejściu nadesłane dane trenujące i testowe, na wyjściu przydział wektorów do klas diagram popełnionych błędów
-\item Kryterium stopu - określona liczba iteracji zadana jako parametr wejściowy
+\item Kryterium stopu - określona liczba iteracji zadana jako parametr wejściowy. W niektórych wypadkac również czas działania algorytmu.
 \end{enumerate}
 \paragraph{Testowanie.}
 Działanie dobranych parametrów dla jąder przekształceń przetestowane zostanie na przygotowanych wcześniej danych. Dane wejściowe treningowe, jak również dane testowe program przyjmnie w postaci wektorów liczb rzeczywistych, gdzie ostatnią składową wektora, będzie wartość liczbowa, wyznaczająca kategorię do której on przynależy. Wektory, zapisane będą w pliku tekstowym w postaci liczb zmiennoprzecinkowych o zapisie wykładniczym oddzielonych białym znakiem.
@@ -133,7 +133,7 @@ Działanie dobranych parametrów dla jąder przekształceń przetestowane zostan
 Szacowanie złożoności obliczeniowej oraz czasu wykonania dla całego rozwiązania dekomponuje się na złożoność i czas wykonania odpowiednio dla algorytmu wyżarzania oraz  algorytmu treningu klasyfikatora SVM, ponieważ w kroku, w którym ewaluowana jest wartość bieżącego znalezionego rozwiązania dla wyżarzania, trzeba będzie wykonać trening i testowanie danych przy użyciu SVM.
 Będziemy posługiwać się pesymistyczną złożonością obliczeniową dla każdego z przypadków. Dla algorytmu symulowanego wyżarzania jest ona wielomianowa dla każdej składowej problemu, co w przypadku sumy złożoności przy doborze kilku parametrów pozostawia ją wielomianową. W przypadku algorytmu treningowego, parametrem złożoności klasyfikacji, będzie ilość danych wektorów wejściowych. Z dotychczasowej analizy dostępnych źródeł ustaliliśmy, że złożoność ta jest liniowa z ewentualnym doprecyzowaniem ilością wymiarów wektorów. W konkluzji, przyjąć można, że złożoność rożwiązania będzie wilomianowa.
 \paragraph{Prezentacja wyników.}
-Wyniki porównania jakości doboru parametrów jąder przekształceń zaprezentowane zostaną na wykresach obrazujących liczbę błędów klasyfikacji w zależności od wybranego jądra z podziałem na rodzaj danych (zredukowane i pełne) oraz podziałem na rodzaj symulowanego wyżarzania FSA (ang. Fast Simulated Annealing) oraz Boltzmann. Czasy wykonania dla poszczególnych typów jąder przekształceń nie będą zmienną, gdyż kryterium stopu obrane dla algorytmu jest kryterium czasu tzn. czas jest taki sam dla wszystkich porównywanych przypadków. 
+Wyniki porównania jakości doboru parametrów jąder przekształceń zaprezentowane zostaną na wykresach obrazujących liczbę błędów klasyfikacji w zależności od wybranego jądra z podziałem na rodzaj danych (zredukowane i pełne) oraz podziałem na rodzaj symulowanego wyżarzania FSA (ang. Fast Simulated Annealing) oraz Boltzmann.
 \section{Środowisko realizacji}
 Ze względu na bardzo dużą ilość matematyki w projekcie zdecydowaliśmy się na realizację projektu w programie MATLAB. Na korzyść wybory wpływa dostępność prostej maszyny SVM zaimplementowanej w Bioinformatics Toolbox oraz funkcji realizującej symulowane wyżarzanie o dużych możliwościach konfiguracyjnych dostępnej w Global Optimization Toolbox. Dzięki temu można skoncentrować się na rozwiązaniu problemu bez konieczności implementowania wszystkich algorytmów składowych.
 \subsection{Symulowane wyżarzanie}
@@ -305,7 +305,7 @@ nodes near coords align={vertical}
 \end{tikzpicture}
 \end{center}
 
-Zgodnie ze oczekiwaniami, wartości domyślne nie zapewniają dobrej klasyfikacji danych. Celem poprawy, konieczne jest dobranie innych parametrów. W przypadku jądra RBF, MATLAB umożliwia wybranie jedynek parametru \textit{sigma}. W przypadku wbudowanegp jądra wielomianiowego możliwe jedynie jest wskazanie stopnia wielomianu. Zaimplementowane przez nas jądro i metoda SA bierze pod uwagę również pozostałe parametry, jednak w przypadku danych \textit{rs\_train7\_no\_headers.txt} i \textit{rs\_test7\_no\_headers.txt} nie ma to wpływu na ostateczny wynik.
+Zgodnie ze oczekiwaniami, wartości domyślne nie zapewniają dobrej klasyfikacji danych. Celem poprawy, konieczne jest dobranie innych wartości parametrów. W przypadku jądra RBF, MATLAB umożliwia wybranie jedynego parametru \textit{sigma}. W przypadku wbudowanego jądra wielomianiowego możliwe jedynie jest wskazanie stopnia wielomianu. Zaimplementowane przez nas jądro i metoda SA bierze pod uwagę również pozostałe parametry. W przypadku danych \textit{rs\_train7\_no\_headers.txt} i \textit{rs\_test7\_no\_headers.txt} nie ma to wpływu na ostateczny wynik.
 
 \subsection{Jakość doboru parametrów a ilość iteracji}
 \paragraph{}
@@ -338,7 +338,7 @@ x tick label style={rotate=90, anchor=east},
 \paragraph{}
 Poniższe wykresy prezentują ilość błędów w zależności od dobranych parametrów przy użyciu metody pełnego  przeglądu. Do tego testu użyto jądra przekształcenia RBF. W przypadku symulowanego wyżarzania warunkiem zakończenia było 50 iteracji. Metoda pełnego przeglądu obliczała ilość błędów dla każdej wartości parametru \textit{sigma} z przeziału <1,30) z krokiem 0,2.
 
-Bez trudu można zauważyć, że SA spisuje się bardzo dobrze. Dla dostepnych danych, wynik symulowanego wyżarzania jest identyczny jak w przypadku metody pełnego przeglądu, co znaczy, że w tym przedziale jest to wartość optymalna. Czas działania również wpływa na korzyść SA - jest czasami wielokrotnie krótszy. 
+Bez trudu można zauważyć, że SA spisuje się bardzo dobrze. Dla dostepnych danych, wynik symulowanego wyżarzania jest identyczny jak w przypadku metody pełnego przeglądu, co znaczy, że w tym przedziale jest to wartość optymalna. Czas działania również wpływa na korzyść SA - jest wielokrotnie krótszy. 
 
 Nie są to zaskakujące wyniki, trzeba natomiast pamiętać że SA pozwoliło uzyskać optymalne rozwiązanie dla tych konkretnych danych w tym konkretnym przedziale. Mimo że algorytm zawiera metodę unikania minimów lokalnych, to zawsze istnieje ryzyko, że się tam znajdzie.
 
