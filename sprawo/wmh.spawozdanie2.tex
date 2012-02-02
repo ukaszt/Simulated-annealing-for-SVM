@@ -165,7 +165,7 @@ Do klasyfikacji danych korzysta się z funkcji \texttt{svmclassify}. Parametry w
 \pagebreak
 \section{Testowanie i wnioski}
 \subsection{Kryterium stopu}
-Dla wykonanych testów symulowanego wyżarzania, jako kryterium stopu wubrano ilość przeprowadzonych iteracji. W przypdaku ogólnego porównania różnych typów jąder i wariantów SA (ang. simulated annealing) wybrano arbitralnie 25 iteracji. W przypadku bardziej szczegółowych badań nad jądrem RBF, ilość powtórzeń została ograniczona do 50.
+Dla wykonanych testów symulowanego wyżarzania, jako kryterium stopu wybrano ilość przeprowadzonych iteracji. W przypdaku ogólnego porównania różnych typów jąder i wariantów SA (ang. simulated annealing) wybrano arbitralnie 25 iteracji. W przypadku bardziej szczegółowych badań nad jądrem RBF, ilość powtórzeń została zwiększona do 50.
 \subsection{Błędy a typ jądra}
 \paragraph{}
 Główne testy, pokazujące korelację liczby błędów do typu jądra, przeprowadzono dla dwóch zbiorów danych: \textit{zawężonych} i \textit{pełnych}.
@@ -305,9 +305,8 @@ nodes near coords align={vertical}
 \end{tikzpicture}
 \end{center}
 
-Zgodnie ze oczekiwaniami, wartości domyślne nie zapowniają dobrej klasyfikacji danych. Celem poprawy, konieczne jest dobranie innych parametrów.
+Zgodnie ze oczekiwaniami, wartości domyślne nie zapewniają dobrej klasyfikacji danych. Celem poprawy, konieczne jest dobranie innych parametrów. W przypadku jądra RBF, MATLAB umożliwia wybranie jedynek parametru \textit{sigma}. W przypadku wbudowanegp jądra wielomianiowego możliwe jedynie jest wskazanie stopnia wielomianu. Zaimplementowane przez nas jądro i metoda SA bierze pod uwagę również pozostałe parametry, jednak w przypadku danych \textit{rs\_train7\_no\_headers.txt} i \textit{rs\_test7\_no\_headers.txt} nie ma to wpływu na ostateczny wynik.
 
-<<<<<<< HEAD
 \subsection{Jakość doboru parametrów a ilość iteracji}
 \paragraph{}
 Przeprowadzono również test pokazujący jakość doboru parametrów przekształcenia od ilości iteracji. Okazało się, że wpływu na tę jakość nie ma ani funkcja zmiany temperatury, ani też wybrana temperatura początkowa (stosowano wartości 100, 500 i 2000). Największy wpływ natomiast miała wybrana funkcja przekształcenia jądra. Dane w uśrednionej postaci prezentuje poniższy wykres:
@@ -337,7 +336,11 @@ x tick label style={rotate=90, anchor=east},
 
 \subsection{Symulowane wyżarzanie a metoda pełnego przeglądu}
 \paragraph{}
-Poniższe wykresy prezentują ilość błędów w zależności od dobranych parametrów przy użyciu metody pełnego  przeglądu. Do tego testu użyto jądra przekształcenia RBF. Dla porównania dla tych samych danych pokazano rezultaty symulowanego wyżarzania, o warunku zakończenia 50 iteracji.
+Poniższe wykresy prezentują ilość błędów w zależności od dobranych parametrów przy użyciu metody pełnego  przeglądu. Do tego testu użyto jądra przekształcenia RBF. W przypadku symulowanego wyżarzania warunkiem zakończenia było 50 iteracji. Metoda pełnego przeglądu obliczała ilość błędów dla każdej wartości parametru \textit{sigma} z przeziału <1,30) z krokiem 0,2.
+
+Bez trudu można zauważyć, że SA spisuje się bardzo dobrze. Dla dostepnych danych, wynik symulowanego wyżarzania jest identyczny jak w przypadku metody pełnego przeglądu, co znaczy, że w tym przedziale jest to wartość optymalna. Czas działania również wpływa na korzyść SA - jest czasami wielokrotnie krótszy. 
+
+Nie są to zaskakujące wyniki, trzeba natomiast pamiętać że SA pozwoliło uzyskać optymalne rozwiązanie dla tych konkretnych danych w tym konkretnym przedziale. Mimo że algorytm zawiera metodę unikania minimów lokalnych, to zawsze istnieje ryzyko, że się tam znajdzie.
 
 \pgfplotsset{width=10cm, compat=1.4}
 \begin{center}
@@ -479,9 +482,6 @@ coordinates
 \end{axis}
 \end{tikzpicture}
 \end{center}
-
-
-
 
 \pgfplotsset{width=10cm, compat=1.4}
 \begin{center}
@@ -662,17 +662,16 @@ coordinates
 \end{tikzpicture}
 \end{center}
 
-\subsection{Spostrzeżenia.}
-=======
-\subsection{Wnioski.}
->>>>>>> 544f950a8714ad657c30b3d7bf015cd9ad0c94d2
-Zarówno dla danych trenujących pełnych jak i zredukowanych, przy zastosowaniu metody wieloklasowej 
+\section{Dodatkowe spostrzeżenia}
+\begin{itemize}
+\item zarówno dla danych trenujących pełnych jak i zredukowanych, przy zastosowaniu metody wieloklasowej 
 masznyny wektorów podpierających, jądrem które osiągnęło najmniejszy wskaźnik błędu jest jądro wielomianowe
-3-go stopnia.\linebreak
-Środowisko MatLab umożliwia wygodną implementację opisywanej metody, jednak nie udostępnia wszystkich opcji, które
-należałoby przeanalizować w realizacji projektu tj. użycie temperatury, jako kryterium stopu. Wydajność tego środowiska jest zadowalająca przy rozwiązaniu średniej wielkości problemów.
+2-go stopnia,
+\item środowisko MATLAB umożliwia wygodną implementację opisywanej metody, jednak nie udostępnia wszystkich opcji, które
+należałoby przeanalizować w realizacji projektu tj. użycie temperatury, jako kryterium stopu. Wydajność tego środowiska jest zadowalająca przy rozwiązaniu średniej wielkości problemów. W przypadku bardziej zlożonych zadań, należało by przemyślec implementację bardziej wydajnej metody multiklasowego SVM niż przedstawiona \textit{one-versus-one}. Warto również rozważyć implemetację całego algorytmu w języku kompilowalnym do kodu maszynowego. W takim wypadku MATLAB mógłby posłużyć do zbudowania prototypu i analizy poprawności,
+\item w obu zestawach danych testujących, pojawiają się wektory które powinny zostac przypisane do klasy nie wystepującej w danych treningowych. Są to oczywiste, napewno nie jedyne, źródła błędów klasyfikacji
+\end{itemize}
 
-\pagebreak
 \begin{thebibliography}{9}
 \bibitem{intr00}
 Nello Cristianini, John Shawe-Taylor, \emph{An introduction to Support Vector Machines and other kernel-based learning methods}.
